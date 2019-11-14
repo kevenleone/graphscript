@@ -13,27 +13,6 @@ class BaseInput {
 
   @Field()
   password: string;
-
-  @Field()
-  phone: string;
-
-  @Field(() => Boolean, { defaultValue: false })
-  approved?: boolean;
-
-  @Field()
-  roleID: string;
-
-  @Field({ nullable: true })
-  areaID?: string;
-
-  @Field({ nullable: true })
-  departmentID?: string;
-
-  @Field({ nullable: true })
-  resetDate?: string;
-
-  @Field({ nullable: true, defaultValue: "0" })
-  annualLimit?: string;
 }
 
 @InputType()
