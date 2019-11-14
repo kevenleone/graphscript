@@ -27,8 +27,8 @@ const BaseResolver = createBaseResolver(
 @Resolver(User)
 export class UserResolver extends BaseResolver {
   
-  @Mutation(() => User, { name: `register` })
-  async register(@Arg("data", () => CreateUserInput) data: CreateUserInput) {
+  @Mutation(() => User, { name: `createUser` })
+  async createUser(@Arg("data", () => CreateUserInput) data: CreateUserInput) {
    let user = await User.findOne({
       where: {
         email: data.email,
@@ -42,7 +42,7 @@ export class UserResolver extends BaseResolver {
         password: hashedPassword,
       });
     }
-    await sendEmail(data.email, "test");
+    await sendEmail({ to: data.email, content: 'Test Sign Up Mailer', subject: "Mail Register" });
     return user;
   }
 
@@ -66,6 +66,7 @@ export class UserResolver extends BaseResolver {
 
     const userData: User = JSON.parse(JSON.stringify(user));
     delete userData.password;
+    console.log(defaults.JWT_SECRET)
 
     try {
       const token: any = await promisify(jsonwebtoken.sign)(userData, defaults.JWT_SECRET);
@@ -82,10 +83,7 @@ export class UserResolver extends BaseResolver {
       return true;
     }
     const token = v4();
-    await sendEmail(
-      email,
-      `${process.env.FRONTEND_URL}/user/change-password/${token}`
-    );
+    await sendEmail({  to: user.email, content: token, subject: "Password Recovery" });
     return true;
   }
 }

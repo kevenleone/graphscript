@@ -5,13 +5,13 @@ import {
   Entity,
   Index,
   ObjectID,
-  ObjectIdColumn,
+  ObjectIdColumn
 } from "typeorm";
 
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
-
+  
   @Field(() => ID)
   @ObjectIdColumn()
   id: ObjectID;
@@ -26,7 +26,8 @@ export class User extends BaseEntity {
 
   @Field()
   fullName(): string {
-    return this.firstName + " " + this.lastName;
+    const { firstName, lastName } = this;
+    return `${firstName} ${lastName}`;
   }
 
   @Field()

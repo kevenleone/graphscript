@@ -3,5 +3,5 @@ export default {
   USER_PASSWORD_INVALID: "Password is wrong, try again",
   USER_TOKEN_INVALID: "Token is invalid",
 
-  AUTHORIZATION_NOT_FOUND: "Authorization not found",
+  AUTHORIZATION_NOT_FOUND: "Authorization Header not found",
 }

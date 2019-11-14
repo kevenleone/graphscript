@@ -5,6 +5,7 @@ import { MyContext } from "../types/MyContext";
 import defaults from "../../config/defaults";
 
 export const isAuth: MiddlewareFn<MyContext> = async (_, next) => {
+  const { AUTHORIZATION_NOT_FOUND, USER_TOKEN_INVALID } = defaults.CONSTANTS;
   const { headers: { authorization } } = _.context.req;
   if (authorization) {
     const token: string = authorization.split(" ").pop() || "notAuth";
@@ -13,8 +14,8 @@ export const isAuth: MiddlewareFn<MyContext> = async (_, next) => {
       console.log(new Date().toISOString(), `| ${user.firstName} is running a call`);
       return next();
     } catch (e) {
-      throw new Error("Token is invalid");
+      throw new Error(USER_TOKEN_INVALID);
     }
   }
-  throw new Error("Authorization not found")
+  throw new Error(AUTHORIZATION_NOT_FOUND)
 };  
