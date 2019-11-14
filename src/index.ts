@@ -1,5 +1,5 @@
-import { config } from 'dotenv';
 import 'reflect-metadata';
+import { config } from 'dotenv';
 import { ApolloServer, Config } from 'apollo-server-express';
 import Express from 'express';
 import { ConnectionOptions, createConnection, getConnectionOptions } from 'typeorm';
