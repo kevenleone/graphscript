@@ -10,6 +10,21 @@
     "useNewUrlParser": true,
     "synchronize": true,
     "logging": true,
+    "useUnifiedTopology": true,
     "entities": ["./src/entity/*.ts"]
+  },
+  {
+    "name": "production",
+    "type": "mongodb",
+    "host": "localhost",
+    "port": 27017,
+    "username": "",
+    "password": "",
+    "database": "your_database",
+    "useNewUrlParser": true,
+    "synchronize": true,
+    "logging": true,
+    "useUnifiedTopology": true,
+    "entities": ["./src/entity/*.js"]
   }
 ]

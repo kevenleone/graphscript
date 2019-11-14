@@ -1,0 +1,22 @@
+version: '3'
+services: 
+  mongodb:
+    image: mongo:latest
+    container_name: graphscript
+    ports: 
+      - '27017:27017'
+    volumes:
+      - './data:/data/db'
+  api:
+    build: .
+    container_name: graphscript-service
+    command: npm start
+    ports: 
+      - '3333:3333'
+    volumes: 
+      - .:/app
+    depends_on: 
+      - mongodb
+    links:
+      - mongodb
+

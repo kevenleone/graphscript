@@ -4,7 +4,7 @@ import { ApolloServer, Config } from 'apollo-server-express';
 import Express from 'express';
 import { ConnectionOptions, createConnection, getConnectionOptions } from 'typeorm';
 import createSchema from './utils/createSchema';
-import defaults from '../config/defaults';
+import defaults from './config/defaults';
 
 (async () => {
   config();

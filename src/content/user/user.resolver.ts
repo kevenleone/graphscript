@@ -14,7 +14,7 @@ import {
   CreateUserInput,
   UpdateUserInput
 } from "./Inputs";
-import defaults from "../../../config/defaults";
+import defaults from "../../config/defaults";
 
 const BaseResolver = createBaseResolver(
   "User",

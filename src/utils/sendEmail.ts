@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import defaults from '../../config/defaults'
+import defaults from '../config/defaults'
 import { MailOption } from '../interfaces/Mail'
 
 export async function sendEmail({to,content, subject}: MailOption) {

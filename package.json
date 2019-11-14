@@ -1,12 +1,14 @@
 {
   "name": "graphscript",
   "version": "1.1.0",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "repository": "https://github.com/kevenleone/graphscript.git",
   "author": "Keven <keven.santos.sz@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "start": "NODE_ENV=production node dist/index.js",
+    "build": "rimraf ./dist && tsc"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -16,6 +18,7 @@
     "@types/nodemailer": "^6.2.2",
     "@types/uuid": "^3.4.6",
     "nodemon": "^1.19.4",
+    "rimraf": "^3.0.0",
     "typescript": "^3.7.2"
   },
   "dependencies": {

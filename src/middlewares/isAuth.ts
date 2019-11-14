@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { promisify } from 'util';
 import { MiddlewareFn } from "type-graphql";
 import { MyContext } from "../interfaces/MyContext";
-import defaults from "../../config/defaults";
+import defaults from "../config/defaults";
 
 export const isAuth: MiddlewareFn<MyContext> = async (_, next) => {
   const { AUTHORIZATION_NOT_FOUND, USER_TOKEN_INVALID } = defaults.CONSTANTS;
