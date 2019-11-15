@@ -14,7 +14,7 @@ import {
   CreateUserInput,
   UpdateUserInput
 } from "./Inputs";
-import defaults from "../../config/defaults";
+import { HttpError, defaults } from '../../config/globalMethods';
 
 const BaseResolver = createBaseResolver(
   "User",
@@ -51,28 +51,27 @@ export class UserResolver extends BaseResolver {
     @Arg("email") email: string,
     @Arg("password") password: string,
   ): Promise<String | Error> {
-    const { CONSTANTS: { USER_PASSWORD_INVALID, USER_NOT_FOUND }  } = defaults;
+    const { JWT_SECRET, CONSTANTS: { USER_PASSWORD_INVALID, USER_NOT_FOUND }  } = defaults;
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return new Error(USER_NOT_FOUND);
+      return HttpError(USER_NOT_FOUND);
     }
 
     const valid = await bcrypt.compare(password, user.password);
 
     if (!valid) {
-      return new Error(USER_PASSWORD_INVALID);
+      return HttpError(USER_PASSWORD_INVALID)
     }
 
     const userData: User = JSON.parse(JSON.stringify(user));
     delete userData.password;
-    console.log(defaults.JWT_SECRET)
 
     try {
-      const token: any = await promisify(jsonwebtoken.sign)(userData, defaults.JWT_SECRET);
+      const token: any = await promisify(jsonwebtoken.sign)(userData, JWT_SECRET);
       return token;
     } catch (e) {
-      return new Error(e.message);
+      return HttpError(e.message)
     }
   }
 

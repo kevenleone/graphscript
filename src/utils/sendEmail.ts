@@ -1,9 +1,9 @@
 import nodemailer from 'nodemailer'
-import defaults from '../config/defaults'
+import { MailerConf, defaults, logger } from '../config/globalMethods'
 import { MailOption } from '../interfaces/Mail'
 
 export async function sendEmail({to,content, subject}: MailOption) {
-  const config: any = await defaults.MailerConf();
+  const config: any = await MailerConf();
   const transporter = nodemailer.createTransport(config);
 
   const mailOptions = {
@@ -14,10 +14,9 @@ export async function sendEmail({to,content, subject}: MailOption) {
   };
 
   const info = await transporter.sendMail(mailOptions);
-
   if (defaults.ENVIRONMENT !== "production") {
-    console.log("Message sent: %s", info.messageId);
+    logger.info(`Message sent: ${info.messageId}`);
     // Preview only available when sending through an Ethereal account
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    logger.info(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
   }
 }
