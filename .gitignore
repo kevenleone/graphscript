@@ -3,3 +3,4 @@ ormconfig.json
 dist
 .env
 data
+log
