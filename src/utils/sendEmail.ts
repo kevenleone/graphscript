@@ -15,8 +15,8 @@ export async function sendEmail({to,content, subject}: MailOption) {
 
   const info = await transporter.sendMail(mailOptions);
   if (defaults.ENVIRONMENT !== "production") {
-    logger.info(`Message sent: ${info.messageId}`);
+    logger.debug(`Message sent: ${info.messageId}`);
     // Preview only available when sending through an Ethereal account
-    logger.info(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
+    logger.debug(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
   }
 }

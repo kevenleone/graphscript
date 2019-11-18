@@ -4,16 +4,20 @@ import { ApolloServer, Config } from 'apollo-server-express';
 import Express from 'express';
 import { ConnectionOptions, createConnection, getConnectionOptions } from 'typeorm';
 import createSchema from './utils/createSchema';
-import defaults from './config/defaults';
+import { defaults, logger } from './config/globalMethods';
+
 
 (async () => {
   config();
+  const { RUN_PLAYGROUND, APP_NAME } = defaults;
   const { NODE_ENV, PORT } = process.env;
   const HttpPort = PORT || 3333;
   const environment = NODE_ENV === "production" ? "production" : "default"; 
   const connectionOptions: ConnectionOptions = await getConnectionOptions(
     environment
-  );
+    );
+    
+  logger.debug(`Starting ${APP_NAME} Server`);
 
   await createConnection({
     ...connectionOptions,
@@ -22,7 +26,7 @@ import defaults from './config/defaults';
 
   const apolloServerConfig: Config = {
     schema: await createSchema(),
-    playground: defaults.RUN_PLAYGROUND,
+    playground: RUN_PLAYGROUND,
     context: ({ req, res }: any) => ({ req, res })
   };
 
@@ -41,6 +45,6 @@ import defaults from './config/defaults';
   server.get('/', (_, response) =>  response.json({ hello: 'world' }))
 
   server.listen(HttpPort, () => {
-    console.log(`Server is running on ${HttpPort}`);
+    logger.debug(`${APP_NAME} has started | PORT: ${HttpPort}`)
   });
 })();

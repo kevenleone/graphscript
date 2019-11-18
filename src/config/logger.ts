@@ -2,7 +2,7 @@ import * as winston from "winston";
 import WinstonDailyRotateFile from 'winston-daily-rotate-file';
 
 const logger = winston.createLogger({
-  level: "verbose",
+  level: "debug",
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json(),

@@ -1,4 +1,5 @@
 import { Field, InputType } from "type-graphql";
+import { MinLength } from "class-validator";
 
 @InputType()
 class BaseInput {
@@ -12,6 +13,7 @@ class BaseInput {
   email: string;
 
   @Field()
+  @MinLength(5)
   password: string;
 }
 

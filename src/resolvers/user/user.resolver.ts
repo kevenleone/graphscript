@@ -4,10 +4,12 @@ import {
   Arg,
   Mutation,
   Resolver,
+  UseMiddleware
 } from "type-graphql";
 import { v4 } from "uuid";
 import jsonwebtoken from "jsonwebtoken";
 import { User } from "../../entity/User";
+import { isAuth } from '../../middlewares/isAuth';
 import { sendEmail } from '../../utils/sendEmail'
 import { createBaseResolver } from "../../shared/createBaseResolver";
 import {
@@ -26,7 +28,7 @@ const BaseResolver = createBaseResolver(
 
 @Resolver(User)
 export class UserResolver extends BaseResolver {
-  
+  @UseMiddleware(isAuth)
   @Mutation(() => User, { name: `createUser` })
   async createUser(@Arg("data", () => CreateUserInput) data: CreateUserInput) {
    let user = await User.findOne({
@@ -41,8 +43,8 @@ export class UserResolver extends BaseResolver {
         ...data,
         password: hashedPassword,
       });
+      await sendEmail({ to: data.email, content: 'Test Sign Up Mailer', subject: "Mail Register" });
     }
-    await sendEmail({ to: data.email, content: 'Test Sign Up Mailer', subject: "Mail Register" });
     return user;
   }
 

@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+import gql from "graphql-tag";
 import Logger from './logger'
 import Defaults from './defaults'
 
@@ -35,4 +36,17 @@ export async function MailerConf() {
   }
 
   return config;
+}
+
+export function getGraphqlOperation(graphqlQuery: object) {
+  try {
+    const GQL = gql`${graphqlQuery}`;
+    const operations = GQL.definitions.map((query: any) => (
+      `${query.operation} ${query.name ? query.name.value : query.selectionSet.selections[0].name.value}`
+    ));
+    return `[${operations.join(", ")}]`;
+  } catch (e) {
+    logger.error(`Error in getGraphqlOperation, reason: ${e.message}`);
+    return 'Unknown';
+  }
 }
