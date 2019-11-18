@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "start": "NODE_ENV=production node dist/src/index.js",
-    "build": "rimraf ./dist && tsc"
+    "build": "sh scripts/build.pkg.sh"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
