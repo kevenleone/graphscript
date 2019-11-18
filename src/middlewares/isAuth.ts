@@ -13,7 +13,7 @@ export const isAuth: MiddlewareFn<MyContext> = async (_, next) => {
     try {
       const user: any = await promisify(jwt.verify)(token, JWT_SECRET);
       _.context.req.headers.loggedUser = user;
-      logger.info(`${user.firstName} is running a graphQL request to ${operationName}`);
+      logger.debug(`${user.firstName} is running a graphQL request to ${operationName}`);
       return next();
     } catch (e) {
       sendError(USER_TOKEN_INVALID);

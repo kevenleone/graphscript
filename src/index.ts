@@ -6,7 +6,6 @@ import { ConnectionOptions, createConnection, getConnectionOptions } from 'typeo
 import createSchema from './utils/createSchema';
 import { defaults, logger } from './config/globalMethods';
 
-
 (async () => {
   config();
   const { RUN_PLAYGROUND, APP_NAME } = defaults;
@@ -15,7 +14,7 @@ import { defaults, logger } from './config/globalMethods';
   const environment = NODE_ENV === "production" ? "production" : "default"; 
   const connectionOptions: ConnectionOptions = await getConnectionOptions(
     environment
-    );
+  );
     
   logger.debug(`Starting ${APP_NAME} Server`);
 

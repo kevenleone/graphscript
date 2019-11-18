@@ -14,15 +14,15 @@ import { sendEmail } from '../../utils/sendEmail'
 import { createBaseResolver } from "../../shared/createBaseResolver";
 import {
   CreateUserInput,
-  UpdateUserInput
+  UpdateUserInput,
+  FilterUserInput
 } from "./Inputs";
 import { HttpError, defaults } from '../../config/globalMethods';
 
 const BaseResolver = createBaseResolver(
   "User",
   User,
-  CreateUserInput,
-  UpdateUserInput,
+  { create: CreateUserInput, update: UpdateUserInput, filter: FilterUserInput},
   User
 );
 

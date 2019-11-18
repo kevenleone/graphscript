@@ -22,3 +22,12 @@ export class CreateUserInput extends BaseInput {}
 
 @InputType()
 export class UpdateUserInput extends BaseInput {}
+
+@InputType()
+export class FilterUserInput {
+  @Field({nullable: true})
+  firstName?: string;
+
+  @Field({nullable: true})
+  email?: string;
+}

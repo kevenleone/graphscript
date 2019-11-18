@@ -7,18 +7,24 @@ import {
   UseMiddleware
 } from "type-graphql";
 import { isAuth } from '../middlewares/isAuth'
-
+import { MiddlewareBaseResolver } from '../interfaces/MiddlewareBaseResolver'
+import { sendError } from '../config/globalMethods'
+/**
+ * 
+ * @param suffix Suffix is used on queryNames, example suffix: getAllUser
+ * @param entity TypeORM Entity
+ * @param inputTypes object with create and update inputTypes
+ * @param returnType return classType
+ * @param middlewares optional middlewares to be applied in defaults functions
+ */
 export function createBaseResolver<
-  T extends ClassType,
-  I extends ClassType,
-  Update extends ClassType
->(
+  classType extends ClassType
+>( 
   suffix: string,
-  returnType: T,
-  inputType: I,
-  updateType: Update,
   entity: any,
-  cascate?: any
+  inputTypes: { create: classType, update: classType, filter?: classType },
+  returnType: classType,
+  middlewares?: MiddlewareBaseResolver
 ) {
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
@@ -26,6 +32,12 @@ export function createBaseResolver<
     @Query(() => [returnType], { name: `getAll${suffix}` })
     async getAll() {
       return entity.find();
+    }
+    
+    @UseMiddleware(isAuth)
+    @Query(() => [returnType], { name: `getAll${suffix}Filter` })
+    async getAllFiltered(@Arg("data", () => inputTypes.filter || inputTypes.create) data: any) {
+      return entity.find({ where : data });
     }
 
     @UseMiddleware(isAuth)
@@ -36,14 +48,17 @@ export function createBaseResolver<
 
     @UseMiddleware(isAuth)
     @Mutation(() => returnType, { name: `create${suffix}` })
-    async create(@Arg("data", () => inputType) data: any) {
+    async create(@Arg("data", () => inputTypes.create) data: any) {
+      if (middlewares && middlewares.create.before) {
+        middlewares.create.before(data);
+      }
       return entity.create(data).save();
     }
 
     @UseMiddleware(isAuth)
     @Mutation(() => returnType, { name: `updateBy${suffix}ID` })
     async updateByID(
-      @Arg("data", () => updateType) data: any,
+      @Arg("data", () => inputTypes.update) data: any,
       @Arg("id") id: string
     ) {
       const entityData = await this.get(id);
@@ -52,7 +67,7 @@ export function createBaseResolver<
 
     @UseMiddleware(isAuth)
     @Mutation(() => [returnType], { name: `createMulti${suffix}` })
-    async createMulti(@Arg("data", () => [inputType]) data: any[]) {
+    async createMulti(@Arg("data", () => [inputTypes.create]) data: any[]) {
       const insertedData = await data.map(
         async obj => await entity.create(obj).save()
       );
@@ -62,15 +77,16 @@ export function createBaseResolver<
     @UseMiddleware(isAuth)
     @Mutation(() => Boolean, { name: `deleteBy${suffix}ID` })
     async deleteByID(@Arg("id", () => String) id: string) {
-      const data = await entity.remove(await this.get(id));
-      if (cascate) {
-        await cascate(id);
+      const _entity = await this.get(id);
+      if (!_entity) {
+        sendError(`No data found on Entity: ${suffix}, ID: ${id}`)
       }
-      if (data) {
-        return true;
-      } else {
-        return false;
+      const data = await entity.remove(_entity);
+      if (middlewares && middlewares.delete.after) {
+        await middlewares.delete.after(id);
       }
+
+      return !!data;
     }
 
     async update(data: any, entityData: any) {
@@ -78,85 +94,6 @@ export function createBaseResolver<
         entityData[field] = data[field];
       }
       return entity.save(entityData);
-    }
-
-    async getManyByPropertyID<R>(
-      propertyValue: string,
-      property: string
-    ): Promise<R[]> {
-      return entity.find({ where: { [property]: propertyValue } });
-    }
-
-    protected async setUpRelation<RT, RE, REI>(
-      { propertyValue, property }: { propertyValue: string; property: string },
-      relationEntity: RE,
-      relationEntityInctance: REI,
-      relationProperty: string,
-      realtionMethod: string
-    ): Promise<RT[]> {
-      const data = await (relationEntity as any).find({
-        where: { [property]: propertyValue }
-      });
-      if (data.length <= 0) {
-        return [];
-      }
-      const returnData: RT[] = [];
-      (await Promise.all(
-        data.map(async (d: any) => {
-          const data = await (relationEntityInctance as any)[realtionMethod](
-            d[relationProperty]
-          );
-          if (data) {
-            returnData.push(data);
-          }
-        })
-      )) as any;
-      return returnData;
-    }
-
-    protected async assignRelationData<RT>(
-      findID: string,
-      relationIDs: string[],
-      {
-        rEntity,
-        where,
-        propertyName,
-        basePropertyName
-      }: {
-        rEntity: any;
-        where: Object;
-        propertyName: string;
-        basePropertyName: string;
-      }
-    ): Promise<RT> {
-      const foundData = await entity.findOne(findID);
-      if (!foundData) {
-        throw new Error("No skill found");
-      }
-      const relationData = await rEntity.find({
-        where
-      });
-      if (relationData.length > 0) {
-        relationData.forEach((rd: any) => {
-          if (relationIDs.includes(rd[propertyName])) {
-            // remove it
-            relationIDs.splice(
-              relationIDs.findIndex(id => id === rd[propertyName]),
-              1
-            );
-          }
-        });
-      }
-      if (relationIDs.length > 0) {
-        await Promise.all(
-          relationIDs.map(id =>
-            rEntity
-              .create({ [basePropertyName]: findID, [propertyName]: id })
-              .save()
-          )
-        );
-      }
-      return this.get(findID);
     }
   }
 
