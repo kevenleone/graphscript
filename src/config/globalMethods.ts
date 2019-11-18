@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer'
 import gql from "graphql-tag";
 import Logger from './logger'
 import Defaults from './defaults'
+import { Pagination } from '../interfaces/Pagination';
 
 export const logger = Logger;
 export const defaults = Defaults;
@@ -49,4 +50,21 @@ export function getGraphqlOperation(graphqlQuery: object) {
     logger.error(`Error in getGraphqlOperation, reason: ${e.message}`);
     return 'Unknown';
   }
+}
+
+export function normalizePagination(pagination: Pagination, defaultSize = 20): Pagination {
+  const pageSize = pagination.pageSize || defaultSize;
+  const pageIndex = pagination.pageIndex || 1;
+  let take = pageSize; let skip = 0;
+
+  if (pageIndex > 1) {
+    skip = take * (pageIndex - 1);
+  }
+
+  return {
+    pageSize,
+    pageIndex,
+    take,
+    skip
+  };
 }

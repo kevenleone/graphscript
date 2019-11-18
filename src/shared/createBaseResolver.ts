@@ -8,7 +8,9 @@ import {
 } from "type-graphql";
 import { isAuth } from '../middlewares/isAuth'
 import { MiddlewareBaseResolver } from '../interfaces/MiddlewareBaseResolver'
-import { sendError } from '../config/globalMethods'
+import { sendError, normalizePagination } from '../config/globalMethods'
+import { PaginationQL } from "../interfaces/Pagination";
+
 /**
  * 
  * @param suffix Suffix is used on queryNames, example suffix: getAllUser
@@ -38,6 +40,13 @@ export function createBaseResolver<
     @Query(() => [returnType], { name: `getAll${suffix}Filter` })
     async getAllFiltered(@Arg("data", () => inputTypes.filter || inputTypes.create) data: any) {
       return entity.find({ where : data });
+    }
+
+    @UseMiddleware(isAuth)
+    @Query(() => [returnType], { name: `getAll${suffix}Paginate` })
+    async getAllPagination(@Arg("data", () => PaginationQL) data: PaginationQL) {
+      const { skip, take } = normalizePagination(data);
+      return entity.find({ skip, take })
     }
 
     @UseMiddleware(isAuth)
