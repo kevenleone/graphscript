@@ -7,7 +7,7 @@ import defaults from '../../config/defaults';
 import PKG from '../../../package.json';
 
 @Resolver()
-export class UserResolver {
+export class ConfigResolver {
   @Query(() => Configuration, { name: `getConfig` })
   getConfig() {
     const { version: APP_VERSION } = PKG;

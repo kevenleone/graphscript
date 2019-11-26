@@ -1,15 +1,13 @@
-import { promisify } from 'util'
 import bcrypt from "bcryptjs";
+import jsonwebtoken from "jsonwebtoken";
+import { promisify } from 'util'
 import {
   Arg,
   Mutation,
   Resolver,
-  UseMiddleware
 } from "type-graphql";
 import { v4 } from "uuid";
-import jsonwebtoken from "jsonwebtoken";
 import { User } from "../../entity/User";
-import { isAuth } from '../../middlewares/isAuth';
 import { sendEmail } from '../../utils/sendEmail'
 import { createBaseResolver } from "../../shared/createBaseResolver";
 import {
@@ -28,7 +26,6 @@ const BaseResolver = createBaseResolver(
 
 @Resolver(User)
 export class UserResolver extends BaseResolver {
-  @UseMiddleware(isAuth)
   @Mutation(() => User, { name: `createUser` })
   async createUser(@Arg("data", () => CreateUserInput) data: CreateUserInput) {
    let user = await User.findOne({
