@@ -25,8 +25,26 @@ Graphscript is a simple boilerplate using the most recents technologies of Javas
     2. .env.example to .env
 4. Inside ormconfig.json configure with your preferences, the database, you can check the TypeORM Docs and select the best database option. https://typeorm.io/#/
 5. Run ( yarn dev or npm run dev ) and open on browser: http://localhost:3333/graphql
-  
+
+## Features
+
+Graphscript implement the following features
+
+- :zap: **Apollo GraphQL** - A GraphQL Server for Express Library
+- :books: **TypeORM** - ORM for TypeScript and JavaScript
+- :whale: **Docker** - To setup all the environment needs, ready to deploy
+- :clipboard: **Winston** - A logger for just about everything. 
+- :passport_control: **JWT** - For protection of GraphQL Content
+
+## Commands
+- `npm run dev` - start the playground with hot-reload at `http://localhost:3333/playground`
+- `npm start` - start the playground pointing for dist index at `http://localhost:3333/playground`
+- `npm run build` - Builds the project: Typescript to Javascript
+
+
+
+### Others
+Project inspired on Krakren -> https://github.com/wendelfreitas/kraken
 
 ## License
-
 MIT license, Copyright (c) 2019 Keven Leone.
