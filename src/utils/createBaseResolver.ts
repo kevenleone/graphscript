@@ -8,7 +8,7 @@ import {
 } from "type-graphql";
 import { isAuth } from '../middlewares/isAuth'
 import { MiddlewareBaseResolver } from '../interfaces/MiddlewareBaseResolver'
-import { sendError, normalizePagination } from '../config/globalMethods'
+import { sendError, normalizePagination } from './globalMethods'
 import { PaginationQL } from "../interfaces/Pagination";
 
 /**

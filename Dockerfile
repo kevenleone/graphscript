@@ -14,6 +14,6 @@ COPY ./ormconfig.json .
 
 ENV NODE_ENV production
 
-EXPOSE 8080
+EXPOSE 3333
 
-CMD [ "node", "dist/index.js" ]
+CMD [ "node", "dist/src/index.js" ]

@@ -1,13 +1,13 @@
 {
   "name": "graphscript",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "src/index.ts",
   "repository": "https://github.com/kevenleone/graphscript.git",
   "author": "Keven <keven.santos.sz@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "start": "NODE_ENV=production node dist/src/index.js",
+    "start": "node dist/src/index.js",
     "build": "sh scripts/build.pkg.sh"
   },
   "devDependencies": {

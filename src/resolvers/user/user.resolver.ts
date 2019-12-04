@@ -9,13 +9,13 @@ import {
 import { v4 } from "uuid";
 import { User } from "../../entity/User";
 import { sendEmail } from '../../utils/sendEmail'
-import { createBaseResolver } from "../../shared/createBaseResolver";
+import { createBaseResolver } from "../../utils/createBaseResolver";
 import {
   CreateUserInput,
   UpdateUserInput,
   FilterUserInput
 } from "./Inputs";
-import { HttpError, defaults } from '../../config/globalMethods';
+import { HttpError, defaults } from '../../utils/globalMethods';
 
 const BaseResolver = createBaseResolver(
   "User",

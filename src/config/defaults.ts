@@ -1,4 +1,4 @@
-import CONSTANTS from './contants'
+import CONSTANTS from '../utils/contants'
 
 const {
   RUN_PLAYGROUND, 

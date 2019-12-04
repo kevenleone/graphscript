@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer'
 import gql from "graphql-tag";
 import Logger from './logger'
-import Defaults from './defaults'
+import Defaults from '../config/defaults'
 import { Pagination } from '../interfaces/Pagination';
 
 export const logger = Logger;
