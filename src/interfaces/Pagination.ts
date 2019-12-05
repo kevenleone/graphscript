@@ -1,11 +1,11 @@
-import { Field, InputType } from "type-graphql";
+import { Field, InputType } from 'type-graphql';
 
 export interface Pagination {
-  pageIndex?: number,
-  pageSize?: number,
-  take?: number,
-  skip?: number
-} 
+  pageIndex?: number;
+  pageSize?: number;
+  take?: number;
+  skip?: number;
+}
 
 @InputType()
 export class PaginationQL {
@@ -13,5 +13,5 @@ export class PaginationQL {
   pageIndex?: number;
 
   @Field({ nullable: true })
-  pageSize?: number
+  pageSize?: number;
 }

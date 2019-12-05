@@ -1,8 +1,5 @@
-import {
-  Query,
-  Resolver,
-} from "type-graphql";
-import { Configuration } from '../../interfaces/Config'
+import { Query, Resolver } from 'type-graphql';
+import { Configuration } from '../../interfaces/Config';
 import defaults from '../../config/defaults';
 import PKG from '../../../package.json';
 
@@ -13,8 +10,8 @@ export class ConfigResolver {
     const { version: APP_VERSION } = PKG;
     const { APP_NAME } = defaults;
     return {
-     APP_NAME,
-     APP_VERSION
+      APP_NAME,
+      APP_VERSION,
     };
   }
 }

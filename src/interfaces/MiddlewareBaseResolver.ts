@@ -1,10 +1,10 @@
-interface middlewareContent {
-  before?: Function,
-  after?: Function
+interface Middleware {
+  before?: Function;
+  after?: Function;
 }
 
 export interface MiddlewareBaseResolver {
-  create: middlewareContent,
-  update: middlewareContent,
-  delete: middlewareContent
+  create: Middleware;
+  update: Middleware;
+  delete: Middleware;
 }

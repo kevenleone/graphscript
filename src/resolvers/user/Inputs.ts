@@ -1,5 +1,5 @@
-import { Field, InputType } from "type-graphql";
-import { MinLength } from "class-validator";
+import { Field, InputType } from 'type-graphql';
+import { MinLength } from 'class-validator';
 
 @InputType()
 class BaseInput {
@@ -25,9 +25,9 @@ export class UpdateUserInput extends BaseInput {}
 
 @InputType()
 export class FilterUserInput {
-  @Field({nullable: true})
+  @Field({ nullable: true })
   firstName?: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   email?: string;
 }
