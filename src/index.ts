@@ -11,25 +11,23 @@ import { defaults, logger } from './utils/globalMethods';
   const { RUN_PLAYGROUND, APP_NAME } = defaults;
   const { NODE_ENV, PORT } = process.env;
   const HttpPort = PORT || 3333;
-  const environment = NODE_ENV === "production" ? "production" : "default"; 
-  const connectionOptions: ConnectionOptions = await getConnectionOptions(
-    environment
-  );
-    
+  const environment = NODE_ENV === 'production' ? 'production' : 'default';
+  const connectionOptions: ConnectionOptions = await getConnectionOptions(environment);
+
   logger.debug(`Starting ${APP_NAME} Server`);
 
   await createConnection({
     ...connectionOptions,
-    name: "default"
+    name: 'default',
   });
 
   const apolloServerConfig: Config = {
     schema: await createSchema(),
     playground: RUN_PLAYGROUND,
-    context: ({ req, res }: any) => ({ req, res })
+    context: ({ req, res }: any) => ({ req, res }),
   };
 
-  if (environment === "production") {
+  if (environment === 'production') {
     apolloServerConfig.introspection = true;
   }
 
@@ -38,12 +36,12 @@ import { defaults, logger } from './utils/globalMethods';
 
   apolloServer.applyMiddleware({
     app: server,
-    cors: false
+    cors: false,
   });
 
-  server.get('/', (_, response) =>  response.json({ hello: 'world' }))
+  server.get('/', (_, res) => res.json({ message: `${defaults.APP_NAME} is Running` }));
 
   server.listen(HttpPort, () => {
-    logger.debug(`${APP_NAME} has started | PORT: ${HttpPort}`)
+    logger.debug(`${APP_NAME} has started | PORT: ${HttpPort}`);
   });
 })();

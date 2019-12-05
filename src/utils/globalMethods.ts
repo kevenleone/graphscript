@@ -1,13 +1,13 @@
-import nodemailer from 'nodemailer'
-import gql from "graphql-tag";
-import Logger from './logger'
-import Defaults from '../config/defaults'
+import nodemailer from 'nodemailer';
+import gql from 'graphql-tag';
+import Logger from './logger';
+import Defaults from '../config/defaults';
 import { Pagination } from '../interfaces/Pagination';
 
 export const logger = Logger;
 export const defaults = Defaults;
 
-export function sendError(message: string, shouldReturn: boolean = false): Error {
+export function sendError(message: string, shouldReturn = false): Error {
   logger.error(message);
   const Err: Error = new Error(message);
   if (!shouldReturn) {
@@ -16,7 +16,7 @@ export function sendError(message: string, shouldReturn: boolean = false): Error
   return Err;
 }
 
-export function HttpError(message: string): Error{
+export function HttpError(message: string): Error {
   return sendError(message, true);
 }
 
@@ -27,10 +27,10 @@ export async function MailerConf() {
     port: MAIL_PORT,
     auth: {
       user: MAIL_USER,
-      pass: MAIL_PASS
-    }
+      pass: MAIL_PASS,
+    },
   };
-  if (ENVIRONMENT !== "production") {
+  if (ENVIRONMENT !== 'production') {
     const { user, pass } = await nodemailer.createTestAccount();
     config.auth.user = user;
     config.auth.pass = pass;
@@ -41,11 +41,14 @@ export async function MailerConf() {
 
 export function getGraphqlOperation(graphqlQuery: object) {
   try {
-    const GQL = gql`${graphqlQuery}`;
-    const operations = GQL.definitions.map((query: any) => (
-      `${query.operation} ${query.name ? query.name.value : query.selectionSet.selections[0].name.value}`
-    ));
-    return `[${operations.join(", ")}]`;
+    const GQL = gql`
+      ${graphqlQuery}
+    `;
+    const operations = GQL.definitions.map(
+      (query: any) =>
+        `${query.operation} ${query.name ? query.name.value : query.selectionSet.selections[0].name.value}`
+    );
+    return `[${operations.join(', ')}]`;
   } catch (e) {
     logger.error(`Error in getGraphqlOperation, reason: ${e.message}`);
     return 'Unknown';
@@ -55,7 +58,8 @@ export function getGraphqlOperation(graphqlQuery: object) {
 export function normalizePagination(pagination: Pagination, defaultSize = 20): Pagination {
   const pageSize = pagination.pageSize || defaultSize;
   const pageIndex = pagination.pageIndex || 1;
-  let take = pageSize; let skip = 0;
+  const take = pageSize;
+  let skip = 0;
 
   if (pageIndex > 1) {
     skip = take * (pageIndex - 1);
@@ -65,6 +69,6 @@ export function normalizePagination(pagination: Pagination, defaultSize = 20): P
     pageSize,
     pageIndex,
     take,
-    skip
+    skip,
   };
 }
