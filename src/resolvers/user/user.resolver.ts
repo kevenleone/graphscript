@@ -1,13 +1,13 @@
-import bcrypt from 'bcryptjs';
-import jsonwebtoken from 'jsonwebtoken';
-import { promisify } from 'util';
-import { Arg, Mutation, Resolver } from 'type-graphql';
 import { v4 } from 'uuid';
+import bcrypt from 'bcryptjs';
+import { promisify } from 'util';
+import jsonwebtoken from 'jsonwebtoken';
+import { Arg, Mutation, Resolver } from 'type-graphql';
 import { User } from '../../entity/User';
 import { sendEmail } from '../../utils/sendEmail';
+import { HttpError, defaults } from '../../utils/globalMethods';
 import { createBaseResolver } from '../../utils/createBaseResolver';
 import { CreateUserInput, UpdateUserInput, FilterUserInput } from './Inputs';
-import { HttpError, defaults } from '../../utils/globalMethods';
 
 const BaseResolver = createBaseResolver(
   'User',
@@ -37,7 +37,7 @@ export class UserResolver extends BaseResolver {
     return user;
   }
 
-  @Mutation(() => String!)
+  @Mutation(() => String)
   async login(@Arg('email') email: string, @Arg('password') password: string): Promise<string | Error> {
     const {
       JWT_SECRET,

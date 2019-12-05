@@ -39,7 +39,7 @@ export async function MailerConf() {
   return config;
 }
 
-export function getGraphqlOperation(graphqlQuery: object) {
+export function getGraphqlOperation(graphqlQuery: any) {
   try {
     const GQL = gql`
       ${graphqlQuery}
