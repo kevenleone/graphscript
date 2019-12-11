@@ -9,7 +9,7 @@
     "dev": "nodemon src/index.ts",
     "start": "node dist/src/index.js",
     "build": "sh scripts/build.pkg.sh",
-    "test": "jest --detectOpenHandles",
+    "test": "jest",
     "coverage": "jest --coverage",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix"
@@ -24,10 +24,13 @@
     "@types/uuid": "^3.4.6",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
+    "cross-env": "^6.0.3",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.1.0",
     "jest": "^24.9.0",
+    "lint-staged": "^9.5.0",
     "nodemon": "^1.19.4",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
@@ -51,5 +54,17 @@
     "typeorm": "^0.2.20",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.2.1"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "cross-env CI=true yarn test --bail --findRelatedTests",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint staged"
+    }
   }
 }
