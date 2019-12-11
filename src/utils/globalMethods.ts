@@ -30,7 +30,7 @@ export async function MailerCredentials(): Promise<MailConfig> {
       pass: MAIL_PASS,
     },
   };
-  if (ENVIRONMENT !== 'production') {
+  if (ENVIRONMENT !== 'production' && !MAIL_USER && !MAIL_PASS) {
     const { user, pass } = await nodemailer.createTestAccount();
     config.auth.user = user;
     config.auth.pass = pass;

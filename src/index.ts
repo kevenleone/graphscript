@@ -6,7 +6,7 @@ import { ConnectionOptions, createConnection, getConnectionOptions } from 'typeo
 import createSchema from './utils/createSchema';
 import { defaults, logger } from './utils/globalMethods';
 
-(async () => {
+(async (): Promise<void> => {
   config();
   const { RUN_PLAYGROUND, APP_NAME } = defaults;
   const { NODE_ENV, PORT } = process.env;

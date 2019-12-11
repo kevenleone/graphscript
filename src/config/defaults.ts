@@ -1,5 +1,15 @@
 import CONSTANTS from '../utils/contants';
-const { RUN_PLAYGROUND, JWT_SECRET, APP_NAME, NODE_ENV, MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS } = process.env;
+const {
+  RUN_PLAYGROUND,
+  JWT_SECRET,
+  APP_NAME,
+  NODE_ENV,
+  MAIL_HOST,
+  MAIL_PORT,
+  MAIL_USER,
+  MAIL_PASS,
+  MAIL_FROM,
+} = process.env;
 
 export default {
   CONSTANTS,
@@ -11,4 +21,5 @@ export default {
   MAIL_HOST: MAIL_HOST || '',
   MAIL_USER: MAIL_USER || '',
   MAIL_PASS: MAIL_PASS || '',
+  MAIL_FROM: MAIL_FROM || '',
 };
