@@ -5,7 +5,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import { Arg, Mutation, Resolver } from 'type-graphql';
 import { User } from '../../entity/User';
 import { sendEmail } from '../../utils/sendEmail';
-import { HttpError, defaults } from '../../utils/globalMethods';
+import { HttpError, defaults, logger } from '../../utils/globalMethods';
 import { createBaseResolver } from '../../utils/createBaseResolver';
 import { CreateUserInput, UpdateUserInput, FilterUserInput } from './Inputs';
 
@@ -49,9 +49,9 @@ export class UserResolver extends BaseResolver {
       return HttpError(USER_NOT_FOUND);
     }
 
-    const valid = await bcrypt.compare(password, user.password);
+    const passwordsMatch = await bcrypt.compare(password, user.password);
 
-    if (!valid) {
+    if (!passwordsMatch) {
       return HttpError(USER_PASSWORD_INVALID);
     }
 
@@ -60,6 +60,7 @@ export class UserResolver extends BaseResolver {
 
     try {
       const token: any = await promisify(jsonwebtoken.sign)(userData, JWT_SECRET);
+      logger.info(`Token generated for ${email}`);
       return token;
     } catch (e) {
       return HttpError(e.message);

@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import gql from 'graphql-tag';
 import Logger from './logger';
 import Defaults from '../config/defaults';
-import { Pagination } from '../interfaces/Pagination';
+import { Pagination, MailConfig } from '../interfaces';
 
 export const logger = Logger;
 export const defaults = Defaults;
@@ -20,9 +20,9 @@ export function HttpError(message: string): Error {
   return sendError(message, true);
 }
 
-export async function MailerConf() {
+export async function MailerCredentials(): Promise<MailConfig> {
   const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS, ENVIRONMENT } = defaults;
-  const config = {
+  const config: MailConfig = {
     host: MAIL_HOST,
     port: MAIL_PORT,
     auth: {
@@ -39,7 +39,7 @@ export async function MailerConf() {
   return config;
 }
 
-export function getGraphqlOperation(graphqlQuery: any) {
+export function getGraphqlOperation(graphqlQuery: any): string {
   try {
     const GQL = gql`
       ${graphqlQuery}

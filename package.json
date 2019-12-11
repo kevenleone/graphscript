@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "start": "node dist/src/index.js",
+    "start": "nodemon src/index.ts",
     "build": "sh scripts/build.pkg.sh",
     "test": "jest",
     "coverage": "jest --coverage",
@@ -57,7 +57,7 @@
   },
   "lint-staged": {
     "*.ts": [
-      "eslint --fix",
+      "yarn lint:fix",
       "cross-env CI=true yarn test --bail --findRelatedTests",
       "git add"
     ]

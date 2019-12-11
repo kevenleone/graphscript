@@ -1,13 +1,13 @@
 import nodemailer from 'nodemailer';
-import { MailerConf, defaults, logger } from './globalMethods';
-import { MailOption } from '../interfaces/Mail';
+import { MailerCredentials, defaults, logger } from './globalMethods';
+import { MailConfig, MailOption } from '../interfaces';
 
-export async function sendEmail({ to, content, subject }: MailOption) {
-  const config: any = await MailerConf();
+export async function sendEmail({ to, content, subject }: MailOption): Promise<void> {
+  const config: MailConfig = await MailerCredentials();
   const transporter = nodemailer.createTransport(config);
 
   const mailOptions = {
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
+    from: '"Fred Foo 👻" <foo@example.com>',
     to, // list of receivers
     subject, // Subject line
     html: `${content}`, // html body

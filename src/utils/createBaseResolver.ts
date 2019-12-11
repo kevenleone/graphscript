@@ -1,8 +1,8 @@
 import { Arg, ClassType, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { isAuth } from '../middlewares/isAuth';
-import { MiddlewareBaseResolver } from '../interfaces/MiddlewareBaseResolver';
+import { MiddlewareBaseResolver } from '../interfaces';
 import { sendError, normalizePagination } from './globalMethods';
-import { PaginationQL } from '../interfaces/Pagination';
+import { PaginationQL } from '../interfaces';
 
 /**
  *

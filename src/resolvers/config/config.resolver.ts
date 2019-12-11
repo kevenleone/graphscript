@@ -1,5 +1,5 @@
 import { Query, Resolver } from 'type-graphql';
-import { Configuration } from '../../interfaces/Config';
+import { Configuration } from '../../interfaces';
 import defaults from '../../config/defaults';
 import PKG from '../../../package.json';
 
