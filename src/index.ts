@@ -23,7 +23,8 @@ import { defaults, logger } from './utils/globalMethods';
 
   const apolloServerConfig: Config = {
     schema: await createSchema(),
-    playground: RUN_PLAYGROUND,
+    cacheControl: { defaultMaxAge: 30 },
+    playground: RUN_PLAYGROUND ? { title: APP_NAME, workspaceName: environment } : false,
     context: ({ req, res }: any) => ({ req, res }),
   };
 

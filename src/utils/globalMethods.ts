@@ -1,5 +1,5 @@
+import { gql } from 'apollo-server-express';
 import nodemailer from 'nodemailer';
-import gql from 'graphql-tag';
 import Logger from './logger';
 import Defaults from '../config/defaults';
 import { Pagination, MailConfig } from '../interfaces';
