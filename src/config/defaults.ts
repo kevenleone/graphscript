@@ -1,5 +1,15 @@
 import CONSTANTS from '../utils/contants';
+
+function normalizeBool(value: string | undefined, defaultValue: boolean): boolean {
+  const expectedBooleans = ['false', 'true'];
+  if (value && expectedBooleans.indexOf(value) > -1) {
+    return JSON.parse(value);
+  }
+  return defaultValue;
+}
+
 const {
+  AUTH_MIDDLEWARE_ENABLED,
   RUN_PLAYGROUND,
   JWT_SECRET,
   APP_NAME,
@@ -13,10 +23,11 @@ const {
 
 export default {
   CONSTANTS,
+  AUTH_MIDDLEWARE_ENABLED: normalizeBool(AUTH_MIDDLEWARE_ENABLED, false),
+  RUN_PLAYGROUND: normalizeBool(RUN_PLAYGROUND, NODE_ENV !== 'production'),
   APP_NAME: APP_NAME || 'Graphscript',
   ENVIRONMENT: NODE_ENV,
   JWT_SECRET: JWT_SECRET || 'MY_SECRET_SECRET',
-  RUN_PLAYGROUND: Boolean(String(RUN_PLAYGROUND) || NODE_ENV !== 'production'),
   MAIL_PORT: Number(MAIL_PORT) || 527,
   MAIL_HOST: MAIL_HOST || '',
   MAIL_USER: MAIL_USER || '',
