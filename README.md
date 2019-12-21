@@ -1,4 +1,4 @@
-# Graphscript
+## Graphscript
     
 <p align="center"> A simple boilerplate GraphQL using TypeScript and TypeORM </p>
 
@@ -12,11 +12,11 @@
 </p>
 
 
-## Introduction 
+## :bulb: Introduction 
 
 Graphscript is a simple boilerplate using the most recents technologies of Javascript, made with TypeScript. Creating a layer of service that possibility the management of Middlewares and Schemas.
 
-## Getting started
+## :house: Getting started
 
 1. Clone this repo using: `https://github.com/kevenleone/graphscript.git`
 2. Install the packages using your preference package manager ( yarn install or npm install )
@@ -26,7 +26,7 @@ Graphscript is a simple boilerplate using the most recents technologies of Javas
 4. Inside ormconfig.json configure with your preferences, the database, you can check the TypeORM Docs and select the best database option. https://typeorm.io/#/
 5. Run ( yarn dev or npm run dev ) and open on browser: http://localhost:3333/graphql
 
-## Features
+## :tada: Features
 
 Graphscript implement the following features
 
@@ -36,15 +36,23 @@ Graphscript implement the following features
 - :clipboard: **Winston** - A logger for just about everything. 
 - :passport_control: **JWT** - For protection of GraphQL Content
 
-## Commands
+## :zap: Commands
 - `npm run dev` - start the playground with hot-reload at `http://localhost:3333/playground`
 - `npm start` - start the playground pointing for dist index at `http://localhost:3333/playground`
 - `npm run build` - Builds the project: Typescript to Javascript
 
+## :art: Inspired on
 
-
-### Others
 Project inspired on Krakren -> https://github.com/wendelfreitas/kraken
 
-## License
+## :handshake: **Contributing**
+If you liked the project and want to cooperate feel free to fork this repository and send Pull Requests.
+
+All kinds of contributions are very welcome and appreciated
+
+-   ⭐️ Star the project
+-   🐛 Find and report issues
+-   📥 Submit PRs to help solve issues or add features
+
+## :book: License
 MIT license, Copyright (c) 2019 Keven Leone.

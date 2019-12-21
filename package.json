@@ -1,6 +1,6 @@
 {
   "name": "graphscript",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "src/index.ts",
   "repository": "https://github.com/kevenleone/graphscript.git",
   "author": "Keven <keven.santos.sz@gmail.com>",
