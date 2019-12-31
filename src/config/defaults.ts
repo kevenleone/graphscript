@@ -33,4 +33,5 @@ export default {
   MAIL_USER: MAIL_USER || '',
   MAIL_PASS: MAIL_PASS || '',
   MAIL_FROM: MAIL_FROM || '',
+  TEST_HOST: 'http://localhost:4000/graphql',
 };

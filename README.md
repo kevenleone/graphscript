@@ -1,5 +1,14 @@
-## Graphscript
-    
+
+<pre align="center">
+
+   ____                 _                   _       _   
+  / ___|_ __ __ _ _ __ | |__  ___  ___ _ __(_)_ __ | |_ 
+ | |  _| '__/ _` | '_ \| '_ \/ __|/ __| '__| | '_ \| __|
+ | |_| | | | (_| | |_) | | | \__ | (__| |  | | |_) | |_ 
+  \____|_|  \__,_| .__/|_| |_|___/\___|_|  |_| .__/ \__|
+                 |_|                         |_|        
+</pre>
+
 <p align="center"> A simple boilerplate GraphQL using TypeScript and TypeORM </p>
 
 <p align="center">

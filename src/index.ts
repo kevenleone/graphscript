@@ -2,33 +2,28 @@ import 'reflect-metadata';
 import { config } from 'dotenv';
 import { ApolloServer, Config } from 'apollo-server-express';
 import Express from 'express';
-import { ConnectionOptions, createConnection, getConnectionOptions } from 'typeorm';
+import { createTypeormConn } from './utils/typeORMConn';
 import createSchema from './utils/createSchema';
 import { defaults, logger } from './utils/globalMethods';
 
 (async (): Promise<void> => {
   config();
-  const { RUN_PLAYGROUND, APP_NAME } = defaults;
-  const { NODE_ENV, PORT } = process.env;
+  const { RUN_PLAYGROUND, APP_NAME, ENVIRONMENT } = defaults;
+  const { PORT } = process.env;
   const HttpPort = PORT || 3333;
-  const environment = NODE_ENV === 'production' ? 'production' : 'default';
-  const connectionOptions: ConnectionOptions = await getConnectionOptions(environment);
 
   logger.debug(`Starting ${APP_NAME} Server`);
 
-  await createConnection({
-    ...connectionOptions,
-    name: 'default',
-  });
+  await createTypeormConn();
 
   const apolloServerConfig: Config = {
     schema: await createSchema(),
     cacheControl: { defaultMaxAge: 30 },
-    playground: RUN_PLAYGROUND ? { title: APP_NAME, workspaceName: environment } : false,
+    playground: RUN_PLAYGROUND ? { title: APP_NAME, workspaceName: ENVIRONMENT } : false,
     context: ({ req, res }: any) => ({ req, res }),
   };
 
-  if (environment === 'production') {
+  if (ENVIRONMENT === 'production') {
     apolloServerConfig.introspection = true;
   }
 

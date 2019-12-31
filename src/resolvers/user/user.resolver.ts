@@ -32,7 +32,7 @@ export class UserResolver extends BaseResolver {
         ...data,
         password: hashedPassword,
       });
-      await sendEmail({ to: data.email, content: 'Test Sign Up Mailer', subject: 'Mail Register' });
+      // await sendEmail({ to: data.email, content: 'Test Sign Up Mailer', subject: 'Mail Register' });
     }
     return user;
   }
