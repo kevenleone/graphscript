@@ -41,8 +41,12 @@ export function createBaseResolver<classType extends ClassType>(
 
     @UseMiddleware(isAuth)
     @Query(() => returnType, { name: `get${suffix}` })
-    async get(@Arg('id', () => String) id: string): Promise<ClassType> {
-      return entity.findOne(id);
+    async get(@Arg('id', () => String) id: string): Promise<ClassType | Error> {
+      const content = await entity.findOne(id);
+      if (!content) {
+        sendError(`${suffix} not found`);
+      }
+      return content;
     }
 
     @UseMiddleware(isAuth)

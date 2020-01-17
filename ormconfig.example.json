@@ -1,30 +1,35 @@
 [
   {
     "name": "default",
-    "type": "mongodb",
+    "type": "postgres",
     "host": "localhost",
-    "port": 27017,
-    "username": "",
-    "password": "",
-    "database": "your_database",
-    "useNewUrlParser": true,
+    "port": 5432,
+    "username": "postgres",
+    "password": "root",
+    "database": "graphscript",
+    "synchronize": true,
+    "logging": false,
+    "entities": ["./src/entity/*.ts"]
+  },
+  {
+    "name": "test",
+    "type": "sqlite",
+    "database": "graphscript.sqlite",
+    "dropSchema": true,
     "synchronize": true,
     "logging": true,
-    "useUnifiedTopology": true,
     "entities": ["./src/entity/*.ts"]
   },
   {
     "name": "production",
-    "type": "mongodb",
+    "type": "postgres",
     "host": "localhost",
-    "port": 27017,
-    "username": "",
-    "password": "",
-    "database": "your_database",
-    "useNewUrlParser": true,
+    "port": 5432,
+    "username": "postgres",
+    "password": "root",
+    "database": "graphscript",
     "synchronize": true,
-    "logging": true,
-    "useUnifiedTopology": true,
+    "logging": false,
     "entities": ["./src/entity/*.js"]
   }
 ]

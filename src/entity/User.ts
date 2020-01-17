@@ -1,12 +1,12 @@
 import { Field, ID, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, Index, ObjectID, ObjectIdColumn } from 'typeorm';
+import { BaseEntity, PrimaryColumn, Column, Entity, Index } from 'typeorm';
 
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
   @Field(() => ID)
-  @ObjectIdColumn()
-  id: ObjectID;
+  @PrimaryColumn({ generated: 'uuid' })
+  id: string;
 
   @Field()
   @Column()
