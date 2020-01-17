@@ -9,7 +9,7 @@
                  |_|                         |_|        
 </pre>
 
-<p align="center"> A simple boilerplate GraphQL using TypeScript and TypeORM </p>
+<p align="center"> A simple GraphQL boilerplate using TypeScript and TypeORM </p>
 
 <p align="center">
   <a href="http://makeapullrequest.com">
@@ -64,4 +64,4 @@ All kinds of contributions are very welcome and appreciated
 -   📥 Submit PRs to help solve issues or add features
 
 ## :book: License
-MIT license, Copyright (c) 2019 Keven Leone.
+MIT license, Copyright (c) 2020 Keven Leone.

@@ -1,8 +1,9 @@
 import { gql } from 'apollo-server-express';
 import nodemailer from 'nodemailer';
+
+import { Pagination, MailConfig } from '~/interfaces';
+import Defaults from '~/config/defaults';
 import Logger from './logger';
-import Defaults from '../config/defaults';
-import { Pagination, MailConfig } from '../interfaces';
 
 export const logger = Logger;
 export const defaults = Defaults;

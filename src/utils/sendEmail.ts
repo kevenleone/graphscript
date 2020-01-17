@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
+import { MailOption } from '~/interfaces';
 import { MailerCredentials, defaults, logger } from './globalMethods';
-import { MailOption } from '../interfaces';
 
 export async function sendEmail({ to, subject, content }: MailOption): Promise<void> {
   const { ENVIRONMENT, MAIL_FROM } = defaults;

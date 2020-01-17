@@ -1,10 +1,11 @@
 import 'reflect-metadata';
+import Express from 'express';
 import { config } from 'dotenv';
 import { ApolloServer, Config } from 'apollo-server-express';
-import Express from 'express';
-import { createTypeormConn } from './utils/typeORMConn';
-import createSchema from './utils/createSchema';
-import { defaults, logger } from './utils/globalMethods';
+
+import { defaults, logger } from '~/utils/globalMethods';
+import { createTypeormConn } from '~/utils/typeORMConn';
+import createSchema from '~/utils/createSchema';
 
 (async (): Promise<void> => {
   config();

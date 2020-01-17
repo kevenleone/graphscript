@@ -1,7 +1,7 @@
 import { request } from 'graphql-request';
-import { User } from '../../../src/entity/User';
-import { createTypeormConn } from '../../../src/utils/typeORMConn';
-import { defaults } from '../../../src/utils/globalMethods';
+import { createTypeormConn } from '~/utils/typeORMConn';
+import { defaults } from '~/utils/globalMethods';
+import { User } from '~/entity/User';
 
 const user: any = {};
 

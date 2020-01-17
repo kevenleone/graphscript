@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { ConfigResolver } from '../../../src/resolvers/config/config.resolver';
-import { Configuration } from '../../../src/interfaces';
-import defaults from '../../../src/config/defaults';
+import { ConfigResolver } from '~/resolvers/config/config.resolver';
+import { Configuration } from '~/interfaces';
+import defaults from '~/config/defaults';
 import PKG from '../../../package.json';
 
 const Config = new ConfigResolver();

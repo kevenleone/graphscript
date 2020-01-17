@@ -1,4 +1,4 @@
-import CONSTANTS from '../utils/contants';
+import CONSTANTS from '~/utils/contants';
 
 function normalizeBool(value: string | undefined, defaultValue: boolean): boolean {
   const expectedBooleans = ['false', 'true'];

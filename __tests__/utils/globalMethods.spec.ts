@@ -1,5 +1,5 @@
-import { MailerCredentials, normalizePagination, getGraphqlOperation, HttpError } from '../../src/utils/globalMethods';
-import { Pagination } from '../../src/interfaces';
+import { MailerCredentials, normalizePagination, getGraphqlOperation, HttpError } from '~/utils/globalMethods';
+import { Pagination } from '~/interfaces';
 
 const page: Pagination = {
   pageIndex: 1,

@@ -1,8 +1,9 @@
-import jwt from 'jsonwebtoken';
-import { promisify } from 'util';
-import { MyContext } from '../interfaces';
 import { MiddlewareFn } from 'type-graphql';
-import { logger, defaults, sendError, getGraphqlOperation } from '../utils/globalMethods';
+import { promisify } from 'util';
+import jwt from 'jsonwebtoken';
+
+import { MyContext } from '~/interfaces';
+import { logger, defaults, sendError, getGraphqlOperation } from '~/utils/globalMethods';
 
 export const isAuth: MiddlewareFn<MyContext> = async (_, next) => {
   const {

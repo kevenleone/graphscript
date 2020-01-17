@@ -3,10 +3,10 @@ import bcrypt from 'bcryptjs';
 import { promisify } from 'util';
 import jsonwebtoken from 'jsonwebtoken';
 import { Arg, Mutation, Resolver } from 'type-graphql';
-import { User } from '../../entity/User';
-import { sendEmail } from '../../utils/sendEmail';
-import { HttpError, defaults, logger } from '../../utils/globalMethods';
-import { createBaseResolver } from '../../utils/createBaseResolver';
+import { User } from '~/entity/User';
+import { sendEmail } from '~/utils/sendEmail';
+import { HttpError, defaults, logger } from '~/utils/globalMethods';
+import { createBaseResolver } from '~/utils/createBaseResolver';
 import { CreateUserInput, UpdateUserInput, FilterUserInput } from './Inputs';
 
 const BaseResolver = createBaseResolver(
@@ -19,7 +19,7 @@ const BaseResolver = createBaseResolver(
 @Resolver(User)
 export class UserResolver extends BaseResolver {
   @Mutation(() => User, { name: `createUser` })
-  async createUser(@Arg('data', () => CreateUserInput) data: CreateUserInput) {
+  async createUser(@Arg('data', () => CreateUserInput) data: CreateUserInput): Promise<User | undefined> {
     let user = await User.findOne({
       where: {
         email: data.email,
