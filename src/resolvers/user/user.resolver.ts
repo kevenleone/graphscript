@@ -3,11 +3,14 @@ import bcrypt from 'bcryptjs';
 import { promisify } from 'util';
 import jsonwebtoken from 'jsonwebtoken';
 import { Arg, Mutation, Resolver } from 'type-graphql';
-import { User } from '~/entity/User';
-import { sendEmail } from '~/utils/sendEmail';
-import { HttpError, defaults, logger } from '~/utils/globalMethods';
-import { createBaseResolver } from '~/utils/createBaseResolver';
+
 import { CreateUserInput, UpdateUserInput, FilterUserInput } from './Inputs';
+import { HttpError, defaults, logger, constants } from '~/utils/globalMethods';
+import { createBaseResolver } from '~/utils/createBaseResolver';
+import { User } from '~/entity/User';
+import Queue from '~/utils/Queue';
+
+const { JOB_RECOVERY_MAILER, JOB_REGISTRATION_MAILER } = constants;
 
 const BaseResolver = createBaseResolver(
   'User',
@@ -20,9 +23,10 @@ const BaseResolver = createBaseResolver(
 export class UserResolver extends BaseResolver {
   @Mutation(() => User, { name: `createUser` })
   async createUser(@Arg('data', () => CreateUserInput) data: CreateUserInput): Promise<User | undefined> {
+    const { email } = data;
     let user = await User.findOne({
       where: {
-        email: data.email,
+        email,
       },
     });
 
@@ -32,7 +36,7 @@ export class UserResolver extends BaseResolver {
         ...data,
         password: hashedPassword,
       });
-      // await sendEmail({ to: data.email, content: 'Test Sign Up Mailer', subject: 'Mail Register' });
+      Queue.add(JOB_REGISTRATION_MAILER, { email, name: data.firstName });
     }
     return user;
   }
@@ -74,7 +78,7 @@ export class UserResolver extends BaseResolver {
       return true;
     }
     const token = v4();
-    await sendEmail({ to: user.email, content: token, subject: 'Password Recovery' });
+    Queue.add(JOB_RECOVERY_MAILER, { email, name: user.firstName, token });
     return true;
   }
 }

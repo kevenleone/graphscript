@@ -1,12 +1,13 @@
 import { gql } from 'apollo-server-express';
-import nodemailer from 'nodemailer';
 
 import { Pagination, MailConfig } from '~/interfaces';
 import Defaults from '~/config/defaults';
+import Constants from './contants';
 import Logger from './logger';
 
 export const logger = Logger;
 export const defaults = Defaults;
+export const constants = Constants;
 
 export function sendError(message: string, shouldReturn = false): Error {
   logger.error(message);
@@ -21,8 +22,8 @@ export function HttpError(message: string): Error {
   return sendError(message, true);
 }
 
-export async function MailerCredentials(): Promise<MailConfig> {
-  const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS, ENVIRONMENT } = defaults;
+export function MailerCredentials(): MailConfig {
+  const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS } = defaults;
   const config: MailConfig = {
     host: MAIL_HOST,
     port: MAIL_PORT,
@@ -31,12 +32,6 @@ export async function MailerCredentials(): Promise<MailConfig> {
       pass: MAIL_PASS,
     },
   };
-  if (ENVIRONMENT !== 'production' && !MAIL_USER && !MAIL_PASS) {
-    const { user, pass } = await nodemailer.createTestAccount();
-    config.auth.user = user;
-    config.auth.pass = pass;
-  }
-
   return config;
 }
 

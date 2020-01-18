@@ -19,10 +19,14 @@ const {
   MAIL_USER,
   MAIL_PASS,
   MAIL_FROM,
+  REDIS_HOST,
+  REDIS_PORT,
 } = process.env;
 
 export default {
   CONSTANTS,
+  REDIS_HOST,
+  REDIS_PORT,
   AUTH_MIDDLEWARE_ENABLED: normalizeBool(AUTH_MIDDLEWARE_ENABLED, false),
   RUN_PLAYGROUND: normalizeBool(RUN_PLAYGROUND, NODE_ENV !== 'production'),
   APP_NAME: APP_NAME || 'Graphscript',

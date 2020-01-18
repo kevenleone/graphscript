@@ -1,11 +1,13 @@
 import 'reflect-metadata';
 import Express from 'express';
 import { config } from 'dotenv';
+import BullBoard from 'bull-board';
 import { ApolloServer, Config } from 'apollo-server-express';
 
 import { defaults, logger } from '~/utils/globalMethods';
 import { createTypeormConn } from '~/utils/typeORMConn';
 import createSchema from '~/utils/createSchema';
+import Queue from '~/utils/Queue';
 
 (async (): Promise<void> => {
   config();
@@ -13,8 +15,8 @@ import createSchema from '~/utils/createSchema';
   const { PORT } = process.env;
   const HttpPort = PORT || 3333;
 
+  BullBoard.setQueues(Queue.queues.map(queue => queue.bull));
   logger.debug(`Starting ${APP_NAME} Server`);
-
   await createTypeormConn();
 
   const apolloServerConfig: Config = {
@@ -35,6 +37,10 @@ import createSchema from '~/utils/createSchema';
     app: server,
     cors: false,
   });
+
+  Queue.process();
+
+  server.use('/admin/queues', BullBoard.UI);
 
   server.get('/', (_, res) => res.json({ message: `${defaults.APP_NAME} is Running` }));
 
