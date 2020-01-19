@@ -14,9 +14,11 @@
     "build": "sh scripts/build.pkg.sh",
     "test:server": "NODE_ENV=test ts-node src/index.ts",
     "test": "NODE_ENV=test jest",
-    "coverage": "NODE_ENV=test jest --coverage",
+    "test:coverage": "NODE_ENV=test jest --coverage",
+    "test:coveralls": "NODE_ENV=test jest --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix"
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "pretest": "link-module-alias"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -29,6 +31,7 @@
     "@types/uuid": "^3.4.6",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
+    "coveralls": "^3.0.9",
     "cross-env": "^6.0.3",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
