@@ -12,6 +12,7 @@
 <p align="center"> A simple GraphQL boilerplate using TypeScript and TypeORM </p>
 
 <p align="center">
+  <a href='https://coveralls.io/github/kevenleone/graphscript'><img src='https://coveralls.io/repos/github/kevenleone/graphscript/badge.svg' alt='Coverage Status' /></a>
   <img src="https://badges.greenkeeper.io/kevenleone/graphscript.svg"> 
   <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome">
