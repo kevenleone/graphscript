@@ -14,8 +14,8 @@
     "build": "sh scripts/build.pkg.sh",
     "test:server": "NODE_ENV=test ts-node src/index.ts",
     "test": "NODE_ENV=test jest",
-    "test:coverage": "NODE_ENV=test jest --coverage",
-    "test:coveralls": "NODE_ENV=test jest --coverage --coverageReporters=text-lcov | coveralls",
+    "test:coverage": "link-module-alias && NODE_ENV=test jest --coverage",
+    "test:coveralls": "link-module-alias && NODE_ENV=test jest --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "pretest": "link-module-alias"
