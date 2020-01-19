@@ -65,7 +65,7 @@ This project comes with a `app.json` file for heroku, that can be used to create
 
 After setting up the project, you can init a repository and push it on GitHub. If your repository is public, you can use the following button:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kevenleone/graphscript.git)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kevenleone/graphscript.git) [![Greenkeeper badge](https://badges.greenkeeper.io/kevenleone/graphscript.svg)](https://greenkeeper.io/)
 
 If you are in a private repository, access the following link replacing `$YOUR_REPOSITORY_LINK$` with your repository link.
 
