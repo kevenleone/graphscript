@@ -1,13 +1,19 @@
 import { gql } from 'apollo-server-express';
 
 import { Pagination, MailConfig } from '~/interfaces';
+import Constants from '~/utils/contants';
 import Defaults from '~/config/defaults';
-import Constants from './contants';
-import Logger from './logger';
+import Logger from '~/utils/logger';
 
-export const logger = Logger;
-export const defaults = Defaults;
 export const constants = Constants;
+export const defaults = Defaults;
+export const logger = Logger;
+
+/**
+ *
+ * @param message The message error to return or throw
+ * @param shouldReturn Should return an error or simply throw, default = false
+ */
 
 export function sendError(message: string, shouldReturn = false): Error {
   logger.error(message);
@@ -18,9 +24,18 @@ export function sendError(message: string, shouldReturn = false): Error {
   return Err;
 }
 
+/**
+ * @param message The return message error, used for GraphQL return
+ */
+
 export function HttpError(message: string): Error {
   return sendError(message, true);
 }
+
+/**
+ * @description Return the mailer credentials
+ * @returns MailConfig
+ */
 
 export function MailerCredentials(): MailConfig {
   const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS } = defaults;
@@ -34,6 +49,12 @@ export function MailerCredentials(): MailConfig {
   };
   return config;
 }
+
+/**
+ *
+ * @param graphqlQuery GQL Request
+ * @returns A string with the operation name
+ */
 
 export function getGraphqlOperation(graphqlQuery: any): string {
   try {
@@ -50,6 +71,12 @@ export function getGraphqlOperation(graphqlQuery: any): string {
     return 'Unknown';
   }
 }
+
+/**
+ *
+ * @param pagination Pagination Object
+ * @param defaultSize How many items will be displayed, default = 20
+ */
 
 export function normalizePagination(pagination: Pagination, defaultSize = 20): Pagination {
   const pageSize = pagination.pageSize || defaultSize;

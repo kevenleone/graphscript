@@ -38,8 +38,6 @@ import Queue from '~/utils/Queue';
     cors: false,
   });
 
-  Queue.process();
-
   server.use('/admin/queues', BullBoard.UI);
 
   server.get('/', (_, res) => res.json({ message: `${defaults.APP_NAME} is Running` }));
