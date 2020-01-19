@@ -73,8 +73,7 @@
   "lint-staged": {
     "*.ts": [
       "yarn lint:fix",
-      "cross-env CI=true yarn test --bail --findRelatedTests",
-      "git add"
+      "cross-env CI=true yarn test --bail --findRelatedTests"
     ]
   },
   "husky": {

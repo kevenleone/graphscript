@@ -12,6 +12,7 @@
 <p align="center"> A simple GraphQL boilerplate using TypeScript and TypeORM </p>
 
 <p align="center">
+  <img src="https://badges.greenkeeper.io/kevenleone/graphscript.svg"> 
   <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome">
   </a>
@@ -19,6 +20,7 @@
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License MIT">
   </a>
 </p>
+
 
 
 ## :bulb: Introduction 
@@ -65,7 +67,8 @@ This project comes with a `app.json` file for heroku, that can be used to create
 
 After setting up the project, you can init a repository and push it on GitHub. If your repository is public, you can use the following button:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kevenleone/graphscript.git) [![Greenkeeper badge](https://badges.greenkeeper.io/kevenleone/graphscript.svg)](https://greenkeeper.io/)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kevenleone/graphscript.git) 
+
 
 If you are in a private repository, access the following link replacing `$YOUR_REPOSITORY_LINK$` with your repository link.
 
