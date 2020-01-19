@@ -1,2 +1,2 @@
-web: npm run all:server
-worker: npm run all:worker
+web: cd ./dist && yarn start:server
+worker: cd ./dist && yarn start:worker

@@ -6,17 +6,17 @@
   "author": "Keven <keven.santos.sz@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "link-module-alias && nodemon src/index.ts",
-    "start": "nodemon src/index.ts",
+    "dev": "npm-run-all -p all:*",
+    "dev:server": "link-module-alias && nodemon src/index.ts",
+    "dev:worker": "link-module-alias && nodemon --exec ts-node src/worker.ts",
+    "start:server": "link-module-alias && node src/index.js",
+    "start:worker": "link-module-alias && node src/worker.js",
     "build": "sh scripts/build.pkg.sh",
     "test:server": "NODE_ENV=test ts-node src/index.ts",
     "test": "NODE_ENV=test jest",
     "coverage": "NODE_ENV=test jest --coverage",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "all": "npm-run-all -p all:*",
-    "all:server": "link-module-alias && nodemon src/index.ts",
-    "all:worker": "link-module-alias && nodemon --exec ts-node src/worker.ts"
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
