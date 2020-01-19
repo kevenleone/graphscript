@@ -10,17 +10,20 @@
   ],
   "env": {
     "AUTH_MIDDLEWARE_ENABLED": {
-      "value": true
+      "description": "If true the authorization header is required to access some data",
+      "value": "true"
     },
     "JWT_SECRET": {
+      "description": "JWT Secret key",
       "generator": "secret"
     },
     "MAIL_FROM": {
-      "value": "Fred Foo 👻 <foo@example.com>"
+      "description": "Mailer config for mailer sender",
+      "value": "Fred Foo <foo@example.com>"
     }
   },  
   "formation": {
-    "server": {
+    "web": {
       "quantity": 1,
       "size": "free"
     },
@@ -49,9 +52,6 @@
     }
   ],
   "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    },
     {
       "url": "heroku/nodejs"
     }
