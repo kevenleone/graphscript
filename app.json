@@ -1,30 +1,26 @@
 {
   "name": "graphscript",
   "description": "Graphscript boilerplate",
+  "keywords": [
+    "GraphQL",
+    "NodeJS",
+    "Typescript",
+    "Javascript",
+    "Boilerplate"
+  ],
   "env": {
     "AUTH_MIDDLEWARE_ENABLED": {
+      "value": true
     },
     "JWT_SECRET": {
       "generator": "secret"
     },
-    "MAIL_HOST": {
-      "value": "1"
-    },
-    "MAIL_PASS": {
-      "value": "1"
-    },
-    "MAIL_USER": {
-      "value": "1"
-    },
-    "MAIL_PORT": {
-      "value": "gitcommits.settings.production"
-    },
     "MAIL_FROM": {
-      "generator": "secret"
+      "value": "Fred Foo 👻 <foo@example.com>"
     }
-  },
+  },  
   "formation": {
-    "web": {
+    "server": {
       "quantity": 1,
       "size": "free"
     },
@@ -39,7 +35,7 @@
       "options": {
         "version": "9.5"
       },
-      "as": "DATABASE"
+      "as": "POSTGRES"
     },
     {
       "plan": "heroku-redis:hobby-dev",
@@ -50,12 +46,12 @@
     },
     {
       "plan": "sendgrid:starter"
-    },
-    {
-      "plan": "papertrail:choklad"
     }
   ],
   "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
     {
       "url": "heroku/nodejs"
     }

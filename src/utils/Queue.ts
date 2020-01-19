@@ -1,12 +1,11 @@
 import Queue from 'bull';
-import { defaults, logger } from './globalMethods';
-const { REDIS_HOST } = defaults;
-
-import * as Jobs from '../jobs';
+import * as Jobs from '~/jobs';
+import { defaults, logger } from '~/utils/globalMethods';
+const { REDIS_URL } = defaults;
 
 const queues = Object.values(Jobs).map(job => {
   const { name, data, handle, config, selfRegister = false, active = true }: any = job;
-  const bull = new Queue(name, { redis: { host: REDIS_HOST } });
+  const bull = new Queue(name, { redis: { host: REDIS_URL } });
   if (selfRegister && active) bull.add(data, config);
   return {
     bull,
@@ -32,10 +31,6 @@ export default {
       const { name, active } = queue;
       if (active) {
         queue.bull.process(queue.handle);
-
-        queue.bull.on('active', () => {
-          logger.info(`[${name}] | [ACTIVE]`);
-        });
 
         queue.bull.on('completed', () => {
           logger.info(`[${name}] | [COMPLETED]`);

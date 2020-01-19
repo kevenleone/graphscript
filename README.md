@@ -50,10 +50,6 @@ Graphscript implement the following features
 - `npm start` - start the playground pointing for dist index at `http://localhost:3333/playground`
 - `npm run build` - Builds the project: Typescript to Javascript
 
-## :art: Inspired on
-
-Project inspired on Krakren -> https://github.com/wendelfreitas/kraken
-
 ## :handshake: **Contributing**
 If you liked the project and want to cooperate feel free to fork this repository and send Pull Requests.
 
@@ -62,6 +58,18 @@ All kinds of contributions are very welcome and appreciated
 -   ⭐️ Star the project
 -   🐛 Find and report issues
 -   📥 Submit PRs to help solve issues or add features
+
+## :package: Deployment
+
+This project comes with a `app.json` file for heroku, that can be used to create an app on heroku from a GitHub repository.
+
+After setting up the project, you can init a repository and push it on GitHub. If your repository is public, you can use the following button:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kevenleone/graphscript.git)
+
+If you are in a private repository, access the following link replacing `$YOUR_REPOSITORY_LINK$` with your repository link.
+
+- `https://heroku.com/deploy?template=$YOUR_REPOSITORY_LINK$`
 
 ## :book: License
 MIT license, Copyright (c) 2020 Keven Leone.

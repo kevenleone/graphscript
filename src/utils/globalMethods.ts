@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { gql } from 'apollo-server-express';
+import sendgridTransport from 'nodemailer-sendgrid-transport';
 
 import { Pagination, MailConfig } from '~/interfaces';
 import Constants from '~/utils/contants';
@@ -38,8 +40,16 @@ export function HttpError(message: string): Error {
  */
 
 export function MailerCredentials(): MailConfig {
-  const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS } = defaults;
-  const config: MailConfig = {
+  const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS, SENDGRID_USERNAME, SENDGRID_PASSWORD } = defaults;
+  if (SENDGRID_USERNAME && SENDGRID_PASSWORD) {
+    return sendgridTransport({
+      auth: {
+        api_user: SENDGRID_USERNAME,
+        api_key: SENDGRID_PASSWORD,
+      },
+    });
+  }
+  return {
     host: MAIL_HOST,
     port: MAIL_PORT,
     auth: {
@@ -47,7 +57,6 @@ export function MailerCredentials(): MailConfig {
       pass: MAIL_PASS,
     },
   };
-  return config;
 }
 
 /**
