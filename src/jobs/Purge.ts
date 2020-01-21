@@ -5,7 +5,7 @@ const { JOB_PURGE, PRIORITY_HIGH } = constants;
 
 export default {
   name: JOB_PURGE,
-  active: false,
+  active: true,
   selfRegister: true,
   config: {
     priority: PRIORITY_HIGH,

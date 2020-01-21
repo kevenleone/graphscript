@@ -1,6 +1,6 @@
 import Queue from 'bull';
 import * as Jobs from '~/jobs';
-import { defaults, logger } from '~/utils/globalMethods';
+import { defaults, constants, logger } from '~/utils/globalMethods';
 const { REDIS_URL } = defaults;
 
 const queues = Object.values(Jobs).map(job => {
@@ -17,12 +17,15 @@ const queues = Object.values(Jobs).map(job => {
 
 export default {
   queues,
-  add(name: string, data: any): any {
-    logger.info(`Added ${name} to queue`);
+  add(name: string, data?: any): any {
     const queue = this.queues.find(queue => queue.name === name);
     if (queue) {
-      return queue.bull.add(data);
+      queue.bull.add(data);
+      logger.info(`Job: ${name} added to Queue`);
+      return queue;
     }
+    logger.warn(`Job: [${name}] wasn't found, and nothing was add to Queue`);
+    return new Error(constants.JOB_NOT_FOUND(name));
   },
   process(): void {
     logger.debug('Queue Process initialized');

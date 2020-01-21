@@ -450,7 +450,15 @@
     "@types/connect" "*"
     "@types/node" "*"
 
-"@types/bull@^3.12.0":
+"@types/bull-board@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@types/bull-board/-/bull-board-0.6.0.tgz#a0b6225ec338d464e6a3f399a62474f4815aa17b"
+  integrity sha512-AUV4qsfL+BSKpp6yw1EaG0RiMU+xj9Ah7PnaRrCUBuvspzzuaCVnkZY3JUKu2jzE8Pev89O0h+wqcet9MAPvbw==
+  dependencies:
+    "@types/bull" "*"
+    "@types/express" "*"
+
+"@types/bull@*", "@types/bull@^3.12.0":
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.12.0.tgz#683d7a08db64823076c4b5ac00eea73e5b6947fa"
   integrity sha512-oKj9X8bxBF7OyAsCPGg2hu9msQPM/WwIRJfUHd0xzmKDMYOBepzbWdIuQDoX1xyvDskdjbW2Io7chbxqARae7A==

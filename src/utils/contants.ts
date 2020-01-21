@@ -1,4 +1,6 @@
 export default {
+  JOB_NOT_FOUND: (name: string): string => `JOB ${name.toUpperCase()} NOT FOUND`,
+
   JOB_REGISTRATION_MAILER: 'JOB_REGISTRATION_MAILER',
   JOB_RECOVERY_MAILER: 'JOB_RECOVERY_MAILER',
   JOB_PURGE: 'JOB_PURGE',
