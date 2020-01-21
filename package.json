@@ -16,8 +16,8 @@
     "test": "NODE_ENV=test jest",
     "test:coverage": "link-module-alias && NODE_ENV=test jest --coverage",
     "test:coveralls": "link-module-alias && NODE_ENV=test jest --coverage --coverageReporters=text-lcov | coveralls",
-    "test:ci": "start-server-and-test test:server http://localhost:4000 test",
-    "test:cicov": "start-server-and-test test:server http://localhost:4000 test:coveralls",
+    "test:ci": "start-server-and-test test:server http://localhost:3333 test",
+    "test:cicov": "start-server-and-test test:server http://localhost:3333 test:coveralls",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "pretest": "link-module-alias"

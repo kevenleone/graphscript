@@ -75,7 +75,7 @@ export class UserResolver extends BaseResolver {
   async forgotPassword(@Arg('email') email: string): Promise<boolean> {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return true;
+      return false;
     }
     const token = v4();
     Queue.add(JOB_RECOVERY_MAILER, { email, name: user.firstName, token });

@@ -6,7 +6,7 @@ node_js:
   - node
 
 env:
-  - PORT=4000
+  - PORT=3333
   - NODE_ENV=test
 
 before_script:
