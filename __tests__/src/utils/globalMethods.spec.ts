@@ -1,4 +1,4 @@
-import { MailerCredentials, normalizePagination, getGraphqlOperation, HttpError } from '~/utils/globalMethods';
+import { normalizePagination, getGraphqlOperation, HttpError } from '~/utils/globalMethods';
 import { Pagination } from '~/interfaces';
 
 const page: Pagination = {
@@ -19,12 +19,6 @@ describe('Should works', () => {
     page.pageSize = 10;
     const getPage = normalizePagination(page);
     expect(getPage).toStrictEqual({ ...page, skip: 10, take: 10 });
-  });
-
-  xit('Get base mailer config', async () => {
-    process.env = Object.assign(process.env, { MAIL_HOST: 'localhost', MAIL_PORT: 'value' });
-    const config = await MailerCredentials();
-    console.log(config);
   });
 
   it('Get Query Operation by Query', () => {

@@ -1,12 +1,12 @@
 import 'reflect-metadata';
-
 import { request } from 'graphql-request';
 import { UserResolver } from '~/resolvers/user/user.resolver';
 import { createTypeormConn } from '~/utils/typeORMConn';
 import { defaults, constants } from '~/utils/globalMethods';
 import { User } from '~/entity/User';
+import Queue from '~/utils/Queue';
 
-const { USER_PASSWORD_INVALID, USER_NOT_FOUND } = constants;
+const { USER_PASSWORD_INVALID, USER_NOT_FOUND, JOB_REGISTRATION_MAILER } = constants;
 const { createUser, forgotPassword, login } = new UserResolver();
 const INVALID_EMAIL = 'invalid@email.com';
 const user: any = {};
@@ -62,9 +62,10 @@ describe('Should test user resolver', () => {
       lastName: 'leone',
       password: '123456',
     };
-
+    const spy = jest.spyOn(Queue, 'add').mockImplementation(() => ({}));
     const response = await createUser(_user);
-
+    expect(spy).toBeCalledWith(JOB_REGISTRATION_MAILER, { name: _user.firstName, email: _user.email });
+    spy.mockRestore();
     expect(response).toBeTruthy();
     const users = await User.find();
     expect(users.length).toBe(2);
@@ -93,7 +94,10 @@ describe('Should test user resolver', () => {
   });
 
   it('Should forgot the password and add event to queue', async () => {
+    const spy = jest.spyOn(Queue, 'add').mockImplementation(() => ({}));
     const response = await forgotPassword(user.email);
+    expect(spy).toBeCalled();
+    spy.mockRestore();
     expect(response).toBeTruthy();
   });
 
