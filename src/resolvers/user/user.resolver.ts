@@ -4,8 +4,8 @@ import { promisify } from 'util';
 import jsonwebtoken from 'jsonwebtoken';
 import { Arg, Mutation, Resolver } from 'type-graphql';
 
-import { CreateUserInput, UpdateUserInput, FilterUserInput } from './Inputs';
 import { HttpError, defaults, logger, constants } from '~/utils/globalMethods';
+import { CreateUserInput, UpdateUserInput, FilterUserInput } from './Inputs';
 import { createBaseResolver } from '~/utils/createBaseResolver';
 import { User } from '~/entity/User';
 import Queue from '~/utils/Queue';

@@ -76,7 +76,7 @@
   "lint-staged": {
     "*.ts": [
       "yarn lint:fix",
-      "cross-env CI=true yarn test --bail --findRelatedTests"
+      "cross-env CI=true yarn test --bail --findRelatedTests --forceExit"
     ]
   },
   "husky": {

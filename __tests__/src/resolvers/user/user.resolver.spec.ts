@@ -1,8 +1,9 @@
 import 'reflect-metadata';
+import { Connection } from 'typeorm';
 import { request } from 'graphql-request';
 import { UserResolver } from '~/resolvers/user/user.resolver';
-import { createTypeormConn } from '~/utils/typeORMConn';
 import { defaults, constants } from '~/utils/globalMethods';
+import { createTypeormConn } from '~/utils/typeORMConn';
 import { User } from '~/entity/User';
 import Queue from '~/utils/Queue';
 
@@ -11,9 +12,17 @@ const { createUser, forgotPassword, login } = new UserResolver();
 const INVALID_EMAIL = 'invalid@email.com';
 const user: any = {};
 
+let ormConn: Connection;
+
 describe('Should test user resolver', () => {
   beforeAll(async () => {
-    await createTypeormConn();
+    ormConn = await createTypeormConn();
+  });
+
+  afterAll(async done => {
+    await ormConn.close();
+    jest.restoreAllMocks();
+    done();
   });
 
   it('Get all users and length equal 0', async () => {
