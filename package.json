@@ -6,9 +6,9 @@
   "author": "Keven <keven.santos.sz@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "npm-run-all -p all:*",
-    "dev:server": "link-module-alias && nodemon src/index.ts",
-    "dev:worker": "link-module-alias && nodemon --exec ts-node src/worker.ts",
+    "dev": "npm-run-all -p dev:*",
+    "dev:server": "nodemon src/index.ts",
+    "dev:worker": "nodemon --exec ts-node src/worker.ts",
     "start:server": "link-module-alias && node src/index.js",
     "start:worker": "link-module-alias && node src/worker.js",
     "build": "sh scripts/build.pkg.sh",

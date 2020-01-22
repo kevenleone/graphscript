@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { EntityOptions } from 'typeorm';
 import { gql } from 'apollo-server-express';
 import sendgridTransport from 'nodemailer-sendgrid-transport';
 
@@ -103,4 +104,10 @@ export function normalizePagination(pagination: Pagination, defaultSize = 20): P
     take,
     skip,
   };
+}
+
+export async function execMiddleware(entity: EntityOptions, data: any, ...middlewares: Function[]): Promise<void> {
+  for (const middleware of middlewares) {
+    await middleware(entity, data);
+  }
 }

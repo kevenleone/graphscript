@@ -1,5 +1,5 @@
 import { Arg, ClassType, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
-import { sendError, normalizePagination } from './globalMethods';
+import { sendError, normalizePagination, execMiddleware } from './globalMethods';
 import { MiddlewareBaseResolver } from '~/interfaces';
 import { isAuth } from '~/middlewares/isAuth';
 import { PaginationQL } from '~/interfaces';
@@ -52,8 +52,8 @@ export function createBaseResolver<classType extends ClassType>(
     @UseMiddleware(isAuth)
     @Mutation(() => returnType, { name: `create${suffix}` })
     async create(@Arg('data', () => inputTypes.create) data: any): Promise<ClassType> {
-      if (middlewares && middlewares.create.before) {
-        middlewares.create.before(data);
+      if (middlewares && middlewares.create) {
+        await execMiddleware(entity, data, ...middlewares.create);
       }
       return entity.create(data).save();
     }
@@ -76,15 +76,15 @@ export function createBaseResolver<classType extends ClassType>(
     @UseMiddleware(isAuth)
     @Mutation(() => Boolean, { name: `deleteBy${suffix}ID` })
     async deleteByID(@Arg('id', () => String) id: string): Promise<boolean> {
+      if (middlewares && middlewares.delete) {
+        await execMiddleware(entity, id, ...middlewares.delete);
+      }
+
       const _entity = await this.get(id);
       if (!_entity) {
         sendError(`No data found on Entity: ${suffix}, ID: ${id}`);
       }
       const data = await entity.remove(_entity);
-      if (middlewares && middlewares.delete.after) {
-        await middlewares.delete.after(id);
-      }
-
       return !!data;
     }
 
