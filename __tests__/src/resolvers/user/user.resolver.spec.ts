@@ -73,7 +73,7 @@ describe('Should test user resolver', () => {
     };
     const spy = jest.spyOn(Queue, 'add').mockImplementation(() => ({}));
     const response = await createUser(_user);
-    expect(spy).toBeCalledWith(JOB_REGISTRATION_MAILER, { name: _user.firstName, email: _user.email });
+    expect(spy).toBeCalledWith(JOB_REGISTRATION_MAILER, { firstName: _user.firstName, email: _user.email });
     spy.mockRestore();
     expect(response).toBeTruthy();
     const users = await User.find();

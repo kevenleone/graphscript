@@ -7,15 +7,15 @@ import { PaginationQL } from '~/interfaces';
 /**
  * @param suffix Suffix is used on queryNames, example suffix: getAllUser
  * @param entity TypeORM Entity
- * @param inputTypes object with create and update inputTypes
+ * @param inputTypes object with create, update and optionally update inputTypes
  * @param returnType return classType
  * @param middlewares optional middlewares to be applied in defaults functions
  */
 export function createBaseResolver<classType extends ClassType>(
   suffix: string,
   entity: any,
-  inputTypes: { create: classType; update: classType; filter?: classType },
   returnType: classType,
+  inputTypes: { create: classType; update: classType; filter?: classType },
   middlewares?: MiddlewareBaseResolver
 ): any {
   @Resolver({ isAbstract: true })

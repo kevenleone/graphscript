@@ -6,12 +6,12 @@ const { JOB_REGISTRATION_MAILER } = constants;
 export default {
   name: JOB_REGISTRATION_MAILER,
   async handle({ data }: any): Promise<void> {
-    const { name, email } = data;
+    const { firstName, email } = data;
     await Mail.sendMail({
       from: MAIL_FROM,
-      to: `${name} <${email}>`,
+      to: `${firstName} <${email}>`,
       subject: `${APP_NAME} Sign Up`,
-      html: `Hello, ${name}. you have been registered on ${APP_NAME}`,
+      html: `Hello, ${firstName}. you have been registered on ${APP_NAME}`,
     });
   },
 };
