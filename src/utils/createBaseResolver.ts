@@ -1,5 +1,5 @@
 import { Arg, ClassType, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
-import { sendError, normalizePagination, execMiddleware } from './globalMethods';
+import { normalizePagination, execMiddleware } from './globalMethods';
 import { MiddlewareBaseResolver } from '~/interfaces';
 import { isAuth } from '~/middlewares/isAuth';
 import { PaginationQL } from '~/interfaces';
@@ -44,7 +44,7 @@ export function createBaseResolver<classType extends ClassType>(
     async get(@Arg('id', () => String) id: string): Promise<ClassType | Error> {
       const content = await entity.findOne(id);
       if (!content) {
-        sendError(`${suffix} not found`);
+        throw new Error(`${suffix} not found`);
       }
       return content;
     }
@@ -82,7 +82,7 @@ export function createBaseResolver<classType extends ClassType>(
 
       const _entity = await this.get(id);
       if (!_entity) {
-        sendError(`No data found on Entity: ${suffix}, ID: ${id}`);
+        throw new Error(`No data found on Entity: ${suffix}, ID: ${id}`);
       }
       const data = await entity.remove(_entity);
       return !!data;

@@ -13,29 +13,6 @@ export const defaults = Defaults;
 export const logger = Logger;
 
 /**
- *
- * @param message The message error to return or throw
- * @param shouldReturn Should return an error or simply throw, default = false
- */
-
-export function sendError(message: string, shouldReturn = false): Error {
-  logger.error(message);
-  const Err: Error = new Error(message);
-  if (!shouldReturn) {
-    throw Err;
-  }
-  return Err;
-}
-
-/**
- * @param message The return message error, used for GraphQL return
- */
-
-export function HttpError(message: string): Error {
-  return sendError(message, true);
-}
-
-/**
  * @description Return the mailer credentials
  * @returns MailConfig
  */

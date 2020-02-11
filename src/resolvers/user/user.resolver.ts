@@ -4,7 +4,7 @@ import { promisify } from 'util';
 import bcrypt from 'bcryptjs';
 import { v4 } from 'uuid';
 
-import { HttpError, defaults, logger, constants } from '~/utils/globalMethods';
+import { defaults, logger, constants } from '~/utils/globalMethods';
 import { CreateUserInput, UpdateUserInput, FilterUserInput } from './Inputs';
 import { createBaseResolver } from '~/utils/createBaseResolver';
 import { User } from '~/entity/User';
@@ -51,13 +51,13 @@ export class UserResolver extends BaseResolver {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return HttpError(USER_NOT_FOUND);
+      return new Error(USER_NOT_FOUND);
     }
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordsMatch) {
-      return HttpError(USER_PASSWORD_INVALID);
+      return new Error(USER_PASSWORD_INVALID);
     }
 
     const userData: User = JSON.parse(JSON.stringify(user));
@@ -68,7 +68,7 @@ export class UserResolver extends BaseResolver {
       logger.info(`Token generated for ${email}`);
       return token;
     } catch (e) {
-      return HttpError(e.message);
+      return new Error(e.message);
     }
   }
 

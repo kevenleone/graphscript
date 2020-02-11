@@ -23,6 +23,11 @@ import Queue from '~/utils/Queue';
     schema: await createSchema(),
     cacheControl: { defaultMaxAge: 30 },
     playground: RUN_PLAYGROUND ? { title: APP_NAME, workspaceName: ENVIRONMENT } : false,
+    formatError: error => {
+      const { message, path } = error;
+      logger.error(`Message: ${message.toUpperCase()} / On Path: ${JSON.stringify(path)}`);
+      return error;
+    },
     context: ({ req, res }: any) => ({ req, res }),
   };
 

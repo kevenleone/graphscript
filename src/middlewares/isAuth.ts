@@ -3,7 +3,7 @@ import { promisify } from 'util';
 import jwt from 'jsonwebtoken';
 
 import { MyContext } from '~/interfaces';
-import { logger, defaults, sendError, getGraphqlOperation } from '~/utils/globalMethods';
+import { logger, defaults, getGraphqlOperation } from '~/utils/globalMethods';
 
 export const isAuth: MiddlewareFn<MyContext> = async (_, next) => {
   const {
@@ -25,10 +25,10 @@ export const isAuth: MiddlewareFn<MyContext> = async (_, next) => {
         logger.debug(`${user.firstName} is running a graphQL request to ${operationName}`);
         return next();
       } catch (e) {
-        sendError(USER_TOKEN_INVALID);
+        throw new Error(USER_TOKEN_INVALID);
       }
     }
-    sendError(AUTHORIZATION_NOT_FOUND);
+    throw new Error(AUTHORIZATION_NOT_FOUND);
   }
   return next();
 };

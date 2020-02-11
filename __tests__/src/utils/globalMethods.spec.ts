@@ -1,4 +1,4 @@
-import { normalizePagination, getGraphqlOperation, HttpError } from '~/utils/globalMethods';
+import { normalizePagination, getGraphqlOperation } from '~/utils/globalMethods';
 import { Pagination } from '~/interfaces';
 
 const page: Pagination = {
@@ -43,11 +43,5 @@ describe('Should works', () => {
     `;
     const operation = getGraphqlOperation(mutation);
     expect(operation).toBe('[mutation createMultiUser]');
-  });
-
-  it('Validate sendError', () => {
-    const errMessage = 'An test error ocurred';
-    const err = HttpError(errMessage);
-    expect(err).toBeInstanceOf(Error);
   });
 });
