@@ -4,8 +4,10 @@ import { request } from 'graphql-request';
 import { UserResolver } from '~/resolvers/user/user.resolver';
 import { defaults, constants } from '~/utils/globalMethods';
 import { createTypeormConn } from '~/utils/typeORMConn';
+import { isAuth } from '~/middlewares/isAuth';
 import { User } from '~/entity/User';
 import Queue from '~/utils/Queue';
+import { ctx, next } from '../../../test.utils';
 
 const { USER_PASSWORD_INVALID, USER_NOT_FOUND, JOB_REGISTRATION_MAILER } = constants;
 const { createUser, forgotPassword, login } = new UserResolver();
@@ -13,6 +15,7 @@ const INVALID_EMAIL = 'invalid@email.com';
 const user: any = {};
 
 let ormConn: Connection;
+let token: string | Error = '';
 
 describe('Should test user resolver', () => {
   beforeAll(async () => {
@@ -88,8 +91,13 @@ describe('Should test user resolver', () => {
   });
 
   it('Should login and get token', async () => {
-    const token = await login(user.email, user.password);
+    token = await login(user.email, user.password);
     expect(token).toBeTruthy();
+  });
+
+  it(`Should pass through Auth Middleware`, async () => {
+    ctx.context.req.headers.authorization = `Bearer ${token}`;
+    isAuth(ctx, next).then(response => expect(response).toStrictEqual({}));
   });
 
   it('Should login with invalid email', async () => {
