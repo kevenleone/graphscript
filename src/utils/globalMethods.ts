@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { EntityOptions } from 'typeorm';
 import { gql } from 'apollo-server-express';
-import sendgridTransport from 'nodemailer-sendgrid-transport';
 
 import { Pagination, MailConfig } from '~/interfaces';
 import Constants from '~/utils/contants';
@@ -18,15 +16,7 @@ export const logger = Logger;
  */
 
 export function MailerCredentials(): MailConfig {
-  const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS, SENDGRID_USERNAME, SENDGRID_PASSWORD } = defaults;
-  if (SENDGRID_USERNAME && SENDGRID_PASSWORD) {
-    return sendgridTransport({
-      auth: {
-        api_user: SENDGRID_USERNAME,
-        api_key: SENDGRID_PASSWORD,
-      },
-    });
-  }
+  const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS } = defaults;
   return {
     host: MAIL_HOST,
     port: MAIL_PORT,

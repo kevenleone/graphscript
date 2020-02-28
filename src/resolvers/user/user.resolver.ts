@@ -4,8 +4,8 @@ import { promisify } from 'util';
 import bcrypt from 'bcryptjs';
 import { v4 } from 'uuid';
 
-import { defaults, logger, constants } from '~/utils/globalMethods';
 import { CreateUserInput, UpdateUserInput, FilterUserInput } from './Inputs';
+import { defaults, logger, constants } from '~/utils/globalMethods';
 import { createBaseResolver } from '~/utils/createBaseResolver';
 import { User } from '~/entity/User';
 import Queue from '~/utils/Queue';
