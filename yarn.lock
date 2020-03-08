@@ -1530,10 +1530,10 @@ buffer@^5.1.0:
     base64-js "^1.0.2"
     ieee754 "^1.1.4"
 
-bull-board@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/bull-board/-/bull-board-0.6.0.tgz#eb2cdb06c3058a581c6047beb2bb7554362842b7"
-  integrity sha512-Rx4FoVo5PUC8kuXpsRY/ewj2q/uTk/TwaA2mrd6Ijh60NCGBRDcIJN+Hk/dZoHXJWDwJBrcTp3Q42cekxbyv7Q==
+bull-board@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/bull-board/-/bull-board-0.7.0.tgz#6b2fbf4b506eb8d09973266ef663806cb6f561c9"
+  integrity sha512-JB07wJ/beACer/BGwf+zsoPacPE91hGL2hnrzAAasVhE6u/7gz9hrA/irBExTwr4DlIgx+vVPS3oal9RRO5DEg==
   dependencies:
     body-parser "^1.17.2"
     bull "3.11.0"
