@@ -65,7 +65,7 @@
     "jsonwebtoken": "^8.5.1",
     "link-module-alias": "^1.2.0",
     "nodemailer": "^6.3.1",
-    "pg": "^7.17.1",
+    "pg": "^8.0.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^8.5.0",
     "type-graphql": "^0.17.5",
