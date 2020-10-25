@@ -1,24 +1,31 @@
 import Queue from 'bull';
+
 import * as Jobs from '~/jobs';
-import { defaults, constants, logger } from '~/utils/globalMethods';
+import { constants, defaults, logger } from '~/utils/globalMethods';
 const { REDIS_URL } = defaults;
 
-const queues = Object.values(Jobs).map(job => {
-  const { name, data, handle, config, selfRegister = false, active = true }: any = job;
+const queues = Object.values(Jobs).map((job) => {
+  const {
+    active = true,
+    config,
+    data,
+    handle,
+    name,
+    selfRegister = false,
+  }: any = job;
   const bull = new Queue(name, { redis: { host: REDIS_URL } });
   if (selfRegister && active) bull.add(data, config);
   return {
-    bull,
-    name,
-    handle,
     active,
+    bull,
+    handle,
+    name,
   };
 });
 
 export default {
-  queues,
   add(name: string, data?: any): any {
-    const queue = this.queues.find(queue => queue.name === name);
+    const queue = this.queues.find((queue) => queue.name === name);
     if (queue) {
       queue.bull.add(data);
       logger.info(`Job: ${name} added to Queue`);
@@ -31,7 +38,7 @@ export default {
     logger.debug('Queue Process initialized');
 
     for (const queue of this.queues) {
-      const { name, active } = queue;
+      const { active, name } = queue;
       if (active) {
         queue.bull.process(queue.handle);
 
@@ -45,4 +52,5 @@ export default {
       }
     }
   },
+  queues,
 };

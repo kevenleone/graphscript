@@ -1,9 +1,9 @@
-import { EntityOptions } from 'typeorm';
 import { gql } from 'apollo-server-express';
+import { EntityOptions } from 'typeorm';
 
-import { Pagination, MailConfig } from '~/interfaces';
-import Constants from '~/utils/contants';
 import Defaults from '~/config/defaults';
+import { MailConfig, Pagination } from '~/interfaces';
+import Constants from '~/utils/contants';
 import Logger from '~/utils/logger';
 
 export const constants = Constants;
@@ -16,14 +16,14 @@ export const logger = Logger;
  */
 
 export function MailerCredentials(): MailConfig {
-  const { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS } = defaults;
+  const { MAIL_HOST, MAIL_PASS, MAIL_PORT, MAIL_USER } = defaults;
   return {
+    auth: {
+      pass: MAIL_PASS,
+      user: MAIL_USER,
+    },
     host: MAIL_HOST,
     port: MAIL_PORT,
-    auth: {
-      user: MAIL_USER,
-      pass: MAIL_PASS,
-    },
   };
 }
 
@@ -66,10 +66,10 @@ export function normalizePagination(pagination: Pagination, defaultSize = 20): P
   }
 
   return {
-    pageSize,
     pageIndex,
-    take,
+    pageSize,
     skip,
+    take,
   };
 }
 

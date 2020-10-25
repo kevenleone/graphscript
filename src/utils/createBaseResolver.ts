@@ -1,8 +1,10 @@
 import { Arg, ClassType, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
-import { normalizePagination, execMiddleware } from './globalMethods';
+
 import { MiddlewareBaseResolver } from '~/interfaces';
-import { isAuth } from '~/middlewares/isAuth';
 import { PaginationQL } from '~/interfaces';
+import { isAuth } from '~/middlewares/isAuth';
+
+import { execMiddleware, normalizePagination } from './globalMethods';
 
 /**
  * @param suffix Suffix is used on queryNames, example suffix: getAllUser
