@@ -1,10 +1,15 @@
-import Queue from 'bull';
+import { JobsOptions, Queue, QueueScheduler, Worker } from 'bullmq';
 
 import * as Jobs from '~/jobs';
 import { constants, defaults, logger } from '~/utils/globalMethods';
 const { REDIS_URL } = defaults;
 
-const queues = Object.values(Jobs).map((job) => {
+const redisOptions = {
+  host: REDIS_URL,
+  port: 6379,
+};
+
+const getQueueData = (job: any) => {
   const {
     active = true,
     config,
@@ -13,21 +18,45 @@ const queues = Object.values(Jobs).map((job) => {
     name,
     selfRegister = false,
   }: any = job;
-  const bull = new Queue(name, { redis: { host: REDIS_URL } });
-  if (selfRegister && active) bull.add(data, config);
+  const bull = new Queue(name, { connection: { ...redisOptions } });
+
+  if (selfRegister && active) {
+    // eslint-disable-next-line no-new
+    new QueueScheduler(name);
+    bull.add(name, data, config);
+  }
+
   return {
     active,
     bull,
     handle,
     name,
   };
+};
+
+interface QueueInterface {
+  active: boolean;
+  bull: Queue;
+  handle(): any;
+  name: string;
+}
+
+const queues: QueueInterface[] = [];
+
+Object.values(Jobs).map((job) => {
+  if (Array.isArray(job)) {
+    return job.forEach((jobData) => {
+      queues.push(getQueueData(jobData));
+    });
+  }
+  queues.push(getQueueData(job));
 });
 
 export default {
-  add(name: string, data?: any): any {
+  add(name: string, data?: any, options?: JobsOptions): any {
     const queue = this.queues.find((queue) => queue.name === name);
     if (queue) {
-      queue.bull.add(data);
+      queue.bull.add(name, data, options);
       logger.info(`Job: ${name} added to Queue`);
       return queue;
     }
@@ -40,13 +69,13 @@ export default {
     for (const queue of this.queues) {
       const { active, name } = queue;
       if (active) {
-        queue.bull.process(queue.handle);
+        const worker = new Worker(name, queue.handle);
 
-        queue.bull.on('completed', () => {
+        worker.on('completed', () => {
           logger.info(`[${name}] | [COMPLETED]`);
         });
 
-        queue.bull.on('failed', (_, err) => {
+        worker.on('failed', (_, err) => {
           logger.error(`[${name}] | [FAILED] -> ${err.message}`);
         });
       }

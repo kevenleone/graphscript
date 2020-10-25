@@ -1,5 +1,11 @@
-import { getConnectionOptions, createConnection, ConnectionOptions, Connection } from 'typeorm';
-import { logger, defaults } from './globalMethods';
+import {
+  Connection,
+  ConnectionOptions,
+  createConnection,
+  getConnectionOptions,
+} from 'typeorm';
+
+import { defaults, logger } from './globalMethods';
 const { ENVIRONMENT, POSTGRES_URL } = defaults;
 
 export const createTypeormConn = async (): Promise<Connection> => {
@@ -7,14 +13,16 @@ export const createTypeormConn = async (): Promise<Connection> => {
   if (ENVIRONMENT === 'production') {
     return createConnection({
       entities: ['./src/entity/*.js'],
-      synchronize: true,
-      name: 'default',
-      url: POSTGRES_URL,
-      type: 'postgres',
       logging: true,
+      name: 'default',
       ssl: true,
+      synchronize: true,
+      type: 'postgres',
+      url: POSTGRES_URL,
     });
   }
-  const connectionOptions: ConnectionOptions = await getConnectionOptions(ENVIRONMENT);
+  const connectionOptions: ConnectionOptions = await getConnectionOptions(
+    ENVIRONMENT,
+  );
   return createConnection({ ...connectionOptions, name: 'default' });
 };
