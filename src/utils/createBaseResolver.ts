@@ -7,10 +7,8 @@ import {
   UseMiddleware,
 } from 'type-graphql';
 
-import { MiddlewareBaseResolver } from '~/interfaces';
-import { PaginationQL } from '~/interfaces';
-import { isAuth } from '~/middlewares/isAuth';
-
+import { MiddlewareBaseResolver, PaginationQL } from '../interfaces';
+import { isAuth } from '../middlewares/isAuth';
 import { execMiddleware, normalizePagination } from './globalMethods';
 
 /**

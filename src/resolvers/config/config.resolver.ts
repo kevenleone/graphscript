@@ -1,9 +1,8 @@
 import { Query, Resolver } from 'type-graphql';
 
-import defaults from '~/config/defaults';
-import { Configuration } from '~/interfaces';
-
 import PKG from '../../../package.json';
+import defaults from '../../config/defaults';
+import { Configuration } from '../../interfaces';
 
 @Resolver()
 export class ConfigResolver {

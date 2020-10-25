@@ -1,5 +1,5 @@
-import { User } from '~/entity/User';
-import { constants } from '~/utils/globalMethods';
+import { User } from '../entity/User';
+import { constants } from '../utils/globalMethods';
 
 const { JOB_PURGE, PRIORITY_HIGH } = constants;
 

@@ -5,7 +5,7 @@ import {
   getConnectionOptions,
 } from 'typeorm';
 
-import { defaults, logger } from './globalMethods';
+import { defaults, logger } from '../utils/globalMethods';
 const { ENVIRONMENT, POSTGRES_URL } = defaults;
 
 export const createTypeormConn = async (): Promise<Connection> => {

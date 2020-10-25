@@ -3,13 +3,12 @@ import 'reflect-metadata';
 import { request } from 'graphql-request';
 import { Connection } from 'typeorm';
 
-import { User } from '~/entity/User';
-import { isAuth } from '~/middlewares/isAuth';
-import { UserResolver } from '~/resolvers/user/user.resolver';
-import { constants, defaults } from '~/utils/globalMethods';
-import Queue from '~/utils/Queue';
-import { createTypeormConn } from '~/utils/typeORMConn';
-
+import { User } from '../../../../src/entity/User';
+import { isAuth } from '../../../../src/middlewares/isAuth';
+import { UserResolver } from '../../../../src/resolvers/user/user.resolver';
+import { constants, defaults } from '../../../../src/utils/globalMethods';
+import Queue from '../../../../src/utils/Queue';
+import { createTypeormConn } from '../../../../src/utils/typeORMConn';
 import { ctx, next } from '../../../test.utils';
 
 const {
@@ -65,8 +64,8 @@ describe('Should test user resolver', () => {
     expect(response).toEqual({
       createUser: {
         firstName: user.firstName,
-        lastName: user.lastName,
         fullName: `${user.firstName} ${user.lastName}`,
+        lastName: user.lastName,
       },
     });
     const users = await User.find({ where: { email: user.email } });
@@ -84,8 +83,8 @@ describe('Should test user resolver', () => {
     const spy = jest.spyOn(Queue, 'add').mockImplementation(() => ({}));
     const response = await createUser(_user);
     expect(spy).toBeCalledWith(JOB_REGISTRATION_MAILER, {
-      firstName: _user.firstName,
       email: _user.email,
+      firstName: _user.firstName,
     });
     spy.mockRestore();
     expect(response).toBeTruthy();

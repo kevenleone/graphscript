@@ -5,10 +5,10 @@ import { router as BullRouter, setQueues } from 'bull-board';
 import { config } from 'dotenv';
 import Express from 'express';
 
-import createSchema from '~/utils/createSchema';
-import { defaults, logger } from '~/utils/globalMethods';
-import Queue from '~/utils/Queue';
-import { createTypeormConn } from '~/utils/typeORMConn';
+import createSchema from './utils/createSchema';
+import { defaults, logger } from './utils/globalMethods';
+import Queue from './utils/Queue';
+import { createTypeormConn } from './utils/typeORMConn';
 
 (async (): Promise<void> => {
   config();

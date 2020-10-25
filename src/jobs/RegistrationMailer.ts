@@ -1,5 +1,6 @@
-import { constants, defaults } from '~/utils/globalMethods';
-import Mail from '~/utils/Mail';
+import { constants, defaults } from '../utils/globalMethods';
+import Mail from '../utils/Mail';
+
 const { APP_NAME, MAIL_FROM } = defaults;
 const { JOB_REGISTRATION_MAILER } = constants;
 

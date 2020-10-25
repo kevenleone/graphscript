@@ -1,7 +1,7 @@
 import { JobsOptions, Queue, QueueScheduler, Worker } from 'bullmq';
 
-import * as Jobs from '~/jobs';
-import { constants, defaults, logger } from '~/utils/globalMethods';
+import * as Jobs from '../jobs';
+import { constants, defaults, logger } from '../utils/globalMethods';
 const { REDIS_URL } = defaults;
 
 const redisOptions = {

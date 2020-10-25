@@ -1,10 +1,10 @@
 import { gql } from 'apollo-server-express';
 import { EntityOptions } from 'typeorm';
 
-import Defaults from '~/config/defaults';
-import { MailConfig, Pagination } from '~/interfaces';
-import Constants from '~/utils/contants';
-import Logger from '~/utils/logger';
+import Defaults from '../config/defaults';
+import { MailConfig, Pagination } from '../interfaces';
+import Constants from '../utils/contants';
+import Logger from '../utils/logger';
 
 export const constants = Constants;
 export const defaults = Defaults;

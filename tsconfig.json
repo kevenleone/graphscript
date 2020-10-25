@@ -24,10 +24,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["src/*"]
-    },
+    "baseUrl": "./",
     "typeRoots": [ "./types", "./node_modules/@types"]
   },
   "exclude": ["node_modules"],

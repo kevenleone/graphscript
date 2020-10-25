@@ -2,7 +2,7 @@ import { MinLength } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
 
 @InputType()
-class BaseInput {
+class UserBaseInput {
   @Field()
   firstName: string;
 
@@ -18,10 +18,10 @@ class BaseInput {
 }
 
 @InputType()
-export class CreateUserInput extends BaseInput {}
+export class CreateUserInput extends UserBaseInput {}
 
 @InputType()
-export class UpdateUserInput extends BaseInput {}
+export class UpdateUserInput extends UserBaseInput {}
 
 @InputType()
 export class FilterUserInput {

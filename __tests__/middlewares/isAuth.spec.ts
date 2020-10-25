@@ -1,5 +1,5 @@
-import { isAuth } from '~/middlewares/isAuth';
-import { constants } from '~/utils/globalMethods';
+import { isAuth } from '@middlewares/isAuth';
+import { constants } from '@utils/globalMethods';
 
 import { ctx, next } from '../test.utils';
 const { AUTH_INVALID_TOKEN, AUTH_NOT_FOUND } = constants;

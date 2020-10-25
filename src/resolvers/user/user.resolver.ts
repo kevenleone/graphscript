@@ -4,11 +4,10 @@ import { Arg, Mutation, Resolver } from 'type-graphql';
 import { promisify } from 'util';
 import { v4 } from 'uuid';
 
-import { User } from '~/entity/User';
-import { createBaseResolver } from '~/utils/createBaseResolver';
-import { constants, defaults, logger } from '~/utils/globalMethods';
-import Queue from '~/utils/Queue';
-
+import { User } from '../../entity/User';
+import { createBaseResolver } from '../../utils/createBaseResolver';
+import { constants, defaults, logger } from '../../utils/globalMethods';
+import Queue from '../../utils/Queue';
 import { CreateUserInput, FilterUserInput, UpdateUserInput } from './Inputs';
 
 const { JOB_RECOVERY_MAILER, JOB_REGISTRATION_MAILER } = constants;
@@ -66,8 +65,7 @@ export class UserResolver extends BaseResolver {
       return new Error(USER_PASSWORD_INVALID);
     }
 
-    const userData: User = JSON.parse(JSON.stringify(user));
-    delete userData.password;
+    const userData = { ...user, password: '' };
 
     try {
       const token: any = await promisify(jsonwebtoken.sign)(

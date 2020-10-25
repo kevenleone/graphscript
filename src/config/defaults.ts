@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 
-import CONSTANTS from '~/utils/contants';
+import CONSTANTS from '../utils/contants';
 config();
 
 function normalizeBool(

@@ -1,5 +1,5 @@
-import constants from '~/utils/contants';
-import Queue from '~/utils/Queue';
+import constants from '../../../src/utils/contants';
+import Queue from '../../../src/utils/Queue';
 
 const { JOB_NOT_FOUND } = constants;
 
