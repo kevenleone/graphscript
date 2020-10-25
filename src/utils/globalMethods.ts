@@ -40,7 +40,11 @@ export function getGraphqlOperation(graphqlQuery: any): string {
     `;
     const operations = GQL.definitions.map(
       (query: any) =>
-        `${query.operation} ${query.name ? query.name.value : query.selectionSet.selections[0].name.value}`
+        `${query.operation} ${
+          query.name
+            ? query.name.value
+            : query.selectionSet.selections[0].name.value
+        }`,
     );
     return `[${operations.join(', ')}]`;
   } catch (e) {
@@ -55,7 +59,10 @@ export function getGraphqlOperation(graphqlQuery: any): string {
  * @param defaultSize How many items will be displayed, default = 20
  */
 
-export function normalizePagination(pagination: Pagination, defaultSize = 20): Pagination {
+export function normalizePagination(
+  pagination: Pagination,
+  defaultSize = 20,
+): Pagination {
   const pageSize = pagination.pageSize || defaultSize;
   const pageIndex = pagination.pageIndex || 1;
   const take = pageSize;
@@ -73,7 +80,11 @@ export function normalizePagination(pagination: Pagination, defaultSize = 20): P
   };
 }
 
-export async function execMiddleware(entity: EntityOptions, data: any, ...middlewares: Function[]): Promise<void> {
+export async function execMiddleware(
+  entity: EntityOptions,
+  data: any,
+  ...middlewares: Function[]
+): Promise<void> {
   for (const middleware of middlewares) {
     await middleware(entity, data);
   }

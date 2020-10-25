@@ -1,15 +1,22 @@
 import 'reflect-metadata';
-import { Connection } from 'typeorm';
+
 import { request } from 'graphql-request';
-import { UserResolver } from '~/resolvers/user/user.resolver';
-import { defaults, constants } from '~/utils/globalMethods';
-import { createTypeormConn } from '~/utils/typeORMConn';
-import { isAuth } from '~/middlewares/isAuth';
+import { Connection } from 'typeorm';
+
 import { User } from '~/entity/User';
+import { isAuth } from '~/middlewares/isAuth';
+import { UserResolver } from '~/resolvers/user/user.resolver';
+import { constants, defaults } from '~/utils/globalMethods';
 import Queue from '~/utils/Queue';
+import { createTypeormConn } from '~/utils/typeORMConn';
+
 import { ctx, next } from '../../../test.utils';
 
-const { USER_PASSWORD_INVALID, USER_NOT_FOUND, JOB_REGISTRATION_MAILER } = constants;
+const {
+  JOB_REGISTRATION_MAILER,
+  USER_NOT_FOUND,
+  USER_PASSWORD_INVALID,
+} = constants;
 const { createUser, forgotPassword, login } = new UserResolver();
 const INVALID_EMAIL = 'invalid@email.com';
 const user: any = {};
@@ -22,7 +29,7 @@ describe('Should test user resolver', () => {
     ormConn = await createTypeormConn();
   });
 
-  afterAll(async done => {
+  afterAll(async (done) => {
     await ormConn.close();
     jest.restoreAllMocks();
     done();
@@ -76,7 +83,10 @@ describe('Should test user resolver', () => {
     };
     const spy = jest.spyOn(Queue, 'add').mockImplementation(() => ({}));
     const response = await createUser(_user);
-    expect(spy).toBeCalledWith(JOB_REGISTRATION_MAILER, { firstName: _user.firstName, email: _user.email });
+    expect(spy).toBeCalledWith(JOB_REGISTRATION_MAILER, {
+      firstName: _user.firstName,
+      email: _user.email,
+    });
     spy.mockRestore();
     expect(response).toBeTruthy();
     const users = await User.find();
@@ -97,7 +107,7 @@ describe('Should test user resolver', () => {
 
   it(`Should pass through Auth Middleware`, async () => {
     ctx.context.req.headers.authorization = `Bearer ${token}`;
-    isAuth(ctx, next).then(response => expect(response).toStrictEqual({}));
+    isAuth(ctx, next).then((response) => expect(response).toStrictEqual({}));
   });
 
   it('Should login with invalid email', async () => {

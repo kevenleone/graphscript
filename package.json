@@ -17,7 +17,7 @@
     "test:coverage": "link-module-alias && NODE_ENV=test jest --coverage",
     "test:coveralls": "link-module-alias && NODE_ENV=test jest --forceExit --detectOpenHandles --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
+    "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "pretest": "link-module-alias"
   },
   "devDependencies": {

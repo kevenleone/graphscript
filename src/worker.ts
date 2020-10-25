@@ -1,6 +1,6 @@
 import { defaults, logger } from '~/utils/globalMethods';
-import { createTypeormConn } from '~/utils/typeORMConn';
 import Queue from '~/utils/Queue';
+import { createTypeormConn } from '~/utils/typeORMConn';
 
 (async (): Promise<void> => {
   const { APP_NAME } = defaults;
