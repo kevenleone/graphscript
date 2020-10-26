@@ -1,2 +1,2 @@
-web: cd ./dist && yarn start:server
-worker: cd ./dist && yarn start:worker
+web: npm run start:server
+worker: npm run start:worker

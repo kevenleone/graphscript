@@ -6,7 +6,6 @@ const { REDIS_URL } = defaults;
 
 const redisOptions = {
   host: REDIS_URL,
-  port: 6379,
 };
 
 const getQueueData = (job: any) => {

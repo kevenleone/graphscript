@@ -58,7 +58,7 @@
     "graphql": "^15.3.0",
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.3.1",
-    "pg": "^7.17.1",
+    "pg": "^8.4.1",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^9.0.0",
     "type-graphql": "^1.1.0",
