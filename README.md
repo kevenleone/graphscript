@@ -1,4 +1,3 @@
-
 <pre align="center">
 
    ____                 _                   _       _   
@@ -20,9 +19,13 @@
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License MIT">
   </a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fkevenleone%2Fgraphscript?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkevenleone%2Fgraphscript.svg?type=shield"/></a>
 </p>
 
 
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkevenleone%2Fgraphscript.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkevenleone%2Fgraphscript?ref=badge_large)
 
 ## :bulb: Introduction 
 
